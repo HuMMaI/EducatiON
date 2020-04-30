@@ -27,7 +27,7 @@
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">Faculties</a>
+                <a class="nav-link" href="/faculty">Faculties</a>
             </li>
 
             <security:authorize access="hasAuthority('ADMIN')">
