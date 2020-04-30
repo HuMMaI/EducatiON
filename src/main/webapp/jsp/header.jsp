@@ -40,7 +40,8 @@
 
         <security:authorize access="isAuthenticated()">
             <form class="form-inline my-2 my-lg-0" action="/logout" method="post">
-                <span style="margin-right: 5px; color: white"><security:authentication property="principal.username" /></span>
+                <span style="margin-right: 5px; color: white"><b><%=session.getAttribute("userFirstName") %></b></span>
+                <span style="margin-right: 5px; color: white"><%=session.getAttribute("userLastName") %></span>
                 <button type="submit" class="btn btn-outline-warning">Logout</button>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>

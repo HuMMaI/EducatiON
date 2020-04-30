@@ -1,5 +1,6 @@
 package org.lgs.lviv.education.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,12 +13,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private AuthenticationSuccessHandlerImpl authenticationSuccessHandlerImpl;
 
     public WebSecurityConfig(@Qualifier("customUserDetailsService") UserDetailsService userDetailsService){
         this.userDetailsService = userDetailsService;
@@ -33,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .formLogin()
                     .loginPage("/login").loginProcessingUrl("/spring_security_check")
                     .usernameParameter("email").passwordParameter("password")
-                    .permitAll()
+                    .permitAll().successHandler(authenticationSuccessHandlerImpl)
                 .and()
                     .logout()
                     .permitAll()
