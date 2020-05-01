@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -31,7 +33,9 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
             request.getSession().setAttribute("userLastName", user.getLastName());
         });
 
-        response.sendRedirect("/");
-    }
+        SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
+        String redirectUrl = savedRequest == null ? "/" : savedRequest.getRedirectUrl();
 
+        response.sendRedirect(redirectUrl);
+    }
 }
