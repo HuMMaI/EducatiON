@@ -4,6 +4,7 @@ public class UserEditDto {
     private String firstName;
     private String lastName;
     private  String email;
+    private String coverId;
 
     public String getFirstName() {
         return firstName;
@@ -27,5 +28,13 @@ public class UserEditDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCoverId() {
+        return coverId;
+    }
+
+    public void setCoverId(String coverId) {
+        this.coverId = coverId;
     }
 }

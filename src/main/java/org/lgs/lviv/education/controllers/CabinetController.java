@@ -41,6 +41,7 @@ public class CabinetController {
         user.setEmail(userEditDto.getEmail());
         user.setFirstName(userEditDto.getFirstName());
         user.setLastName(userEditDto.getLastName());
+        user.setCoverId(userEditDto.getCoverId());
 
         userService.save(user);
 
