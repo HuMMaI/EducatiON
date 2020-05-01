@@ -8,6 +8,7 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 <span>Photo: </span> <br>
+<img src="/user-cover-files/download/${user.coverId}" alt=""> <br>
 <span>First name: ${user.firstName}</span> <br>
 <span>Last name: ${user.lastName}</span> <br>
 <span>Email name: ${user.email}</span> <br>
