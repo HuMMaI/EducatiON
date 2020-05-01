@@ -25,10 +25,13 @@ public class User {
     @Column(name = "role")
     private Set<Roles> roles;
 
+    @Column(name = "cover_id")
+    private String coverId;
+
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password, String coverId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -81,5 +84,13 @@ public class User {
 
     public void setRoles(Set<Roles> roles) {
         this.roles = roles;
+    }
+
+    public String getCoverId() {
+        return coverId;
+    }
+
+    public void setCoverId(String coverId) {
+        this.coverId = coverId;
     }
 }

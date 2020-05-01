@@ -2,6 +2,7 @@ package org.lgs.lviv.education.services;
 
 import org.lgs.lviv.education.entities.Roles;
 import org.lgs.lviv.education.entities.User;
+import org.lgs.lviv.education.repositories.UserCoverFileRepository;
 import org.lgs.lviv.education.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,11 +19,17 @@ public class UserService {
 
     private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
+    private final UserCoverFileRepository userCoverFileRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder,
+            UserCoverFileRepository userCoverFileRepository
+    ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userCoverFileRepository = userCoverFileRepository;
     }
 
     public void create(User user){
