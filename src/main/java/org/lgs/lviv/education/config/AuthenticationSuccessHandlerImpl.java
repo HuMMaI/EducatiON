@@ -31,6 +31,8 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         userMaybe.ifPresent(user -> {
             request.getSession().setAttribute("userFirstName", user.getFirstName());
             request.getSession().setAttribute("userLastName", user.getLastName());
+            request.getSession().setAttribute("userId", user.getId());
+            request.getSession().setAttribute("userEmail", user.getEmail());
         });
 
         SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);

@@ -45,4 +45,15 @@ public class UserService {
     public void save(User user){
         userRepository.save(user);
     }
+
+    public User findById(int userId) {
+        Optional<User> userMaybe = userRepository.findById(userId);
+
+        if (userMaybe.isPresent()){
+            return userMaybe.get();
+        }
+
+        String message = String.format("User with id %d not found!", userId);
+        throw new RuntimeException(message);
+    }
 }
