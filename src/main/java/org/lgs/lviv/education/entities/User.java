@@ -20,14 +20,6 @@ public class User {
 
     private String password;
 
-    private int age;
-
-    private String gender;
-
-    private String country;
-
-    private String city;
-
     @Enumerated(EnumType.ORDINAL)
     @ElementCollection(targetClass = Roles.class, fetch = FetchType.EAGER)
     @Column(name = "role")
@@ -36,15 +28,11 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password, int age, String gender, String country, String city) {
+    public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.age = age;
-        this.gender = gender;
-        this.country = country;
-        this.city = city;
     }
 
     public int getId() {
@@ -85,38 +73,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public Set<Roles> getRoles() {
