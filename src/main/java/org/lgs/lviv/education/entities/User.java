@@ -28,6 +28,9 @@ public class User {
     @Column(name = "cover_id")
     private String coverId;
 
+    private boolean isEmailVerify;
+    private String verifyHashCode;
+
     public User() {
     }
 
@@ -92,5 +95,21 @@ public class User {
 
     public void setCoverId(String coverId) {
         this.coverId = coverId;
+    }
+
+    public boolean isEmailVerify() {
+        return isEmailVerify;
+    }
+
+    public void setEmailVerify(boolean emailVerify) {
+        isEmailVerify = emailVerify;
+    }
+
+    public String getVerifyHashCode() {
+        return verifyHashCode;
+    }
+
+    public void setVerifyHashCode(String verifyHashCode) {
+        this.verifyHashCode = verifyHashCode;
     }
 }

@@ -32,4 +32,11 @@ public class RegistrationController {
 
         return "redirect:/login";
     }
+
+    @GetMapping("/confirmEmail")
+    public String confirmEmail(String hash){
+        userService.confirmEmail(hash);
+
+        return "redirect:/login";
+    }
 }
