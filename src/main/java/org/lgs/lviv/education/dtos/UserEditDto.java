@@ -3,7 +3,7 @@ package org.lgs.lviv.education.dtos;
 public class UserEditDto {
     private String firstName;
     private String lastName;
-    private  String email;
+    private String email;
     private String coverId;
 
     public String getFirstName() {
