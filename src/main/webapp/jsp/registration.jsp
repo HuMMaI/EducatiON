@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,7 @@
 <body>
 <div class="container">
     <div class="d-flex justify-content-center h-100">
-        <div class="card">
+        <div class="card h-auto">
             <div class="card-header">
                 <h3>Sign Up</h3>
             </div>
@@ -28,26 +29,56 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-address-book"></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="email address" name="email">
-
+                        <input type="text" class="form-control ${not empty emailError ? 'is-invalid' : ''}" placeholder="email address" name="email">
+                        <c:if test="${not empty emailError}">
+                            <div class="invalid-feedback">
+                                ${emailError}
+                            </div>
+                        </c:if>
                     </div>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
-                        <input type="password" class="form-control" placeholder="password" name="password">
+                        <input type="password" class="form-control ${not empty passwordError ? 'is-invalid' : ''}" placeholder="password" name="password">
+                        <c:if test="${not empty passwordError}">
+                            <div class="invalid-feedback">
+                                    ${passwordError}
+                            </div>
+                        </c:if>
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-key"></i></span>
+                        </div>
+                        <input type="password" class="form-control ${not empty passwordConfirmationError ? 'is-invalid' : ''}" placeholder="password confirmation" name="passwordConfirmation">
+                        <c:if test="${not empty passwordConfirmationError}">
+                            <div class="invalid-feedback">
+                                    ${passwordConfirmationError}
+                            </div>
+                        </c:if>
                     </div>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="first name" name="firstName">
+                        <input type="text" class="form-control ${not empty firstNameError ? 'is-invalid' : ''}" placeholder="first name" name="firstName" value="<c:if test='${not empty user}'>user.firstName</c:if>">
+                        <c:if test="${not empty firstNameError}">
+                            <div class="invalid-feedback">
+                                    ${firstNameError}
+                            </div>
+                        </c:if>
                     </div>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="last name" name="lastName">
+                        <input type="text" class="form-control ${not empty lastNameError ? 'is-invalid' : ''}" placeholder="last name" name="lastName">
+                        <c:if test="${not empty lastNameError}">
+                            <div class="invalid-feedback">
+                                    ${lastNameError}
+                            </div>
+                        </c:if>
                     </div>
                     <div class="form-group">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

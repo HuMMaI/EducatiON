@@ -30,6 +30,12 @@
                 <a class="nav-link" href="/faculty">Faculties</a>
             </li>
 
+            <security:authorize access="hasAuthority('ENROLLEE')">
+                <li class="nav-item">
+                    <a class="nav-link" href="/grades">Grades list</a>
+                </li>
+            </security:authorize>
+
             <security:authorize access="hasAuthority('ADMIN')">
                 <li class="nav-item">
                     <a class="nav-link" href="/user">User list</a>
