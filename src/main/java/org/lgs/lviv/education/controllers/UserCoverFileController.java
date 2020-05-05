@@ -1,4 +1,4 @@
-package org.lgs.lviv.education.config;
+package org.lgs.lviv.education.controllers;
 
 import org.lgs.lviv.education.entities.UserCoverFile;
 import org.lgs.lviv.education.services.UserCoverFileService;
