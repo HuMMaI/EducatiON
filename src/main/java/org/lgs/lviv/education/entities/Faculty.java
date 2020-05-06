@@ -1,6 +1,7 @@
 package org.lgs.lviv.education.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "faculties")
@@ -13,6 +14,11 @@ public class Faculty {
 
     @Column(name = "number_of_seats")
     private int numberOfSeats;
+
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = FacultySubjects.class, fetch = FetchType.EAGER)
+    @Column(name = "subject")
+    private Set<FacultySubjects> subjects;
 
     public Faculty() {
     }
@@ -44,5 +50,13 @@ public class Faculty {
 
     public void setNumberOfSeats(int numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
+    }
+
+    public Set<FacultySubjects> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<FacultySubjects> subjects) {
+        this.subjects = subjects;
     }
 }
