@@ -19,6 +19,7 @@
         <th>Id</th>
         <th>Faculty name</th>
         <th>Number of seats</th>
+        <th>View info about faculty</th>
         <security:authorize access="hasAuthority('ADMIN')">
             <th>Action</th>
         </security:authorize>
@@ -30,6 +31,7 @@
             <td>${faculty.id}</td>
             <td>${faculty.name}</td>
             <td>${faculty.numberOfSeats}</td>
+            <td><a href="/faculty/info?id=${faculty.id}">View</a></td>
             <security:authorize access="hasAuthority('ADMIN')">
                 <td><a href="/faculty/${faculty.id}">Edit</a></td>
             </security:authorize>
