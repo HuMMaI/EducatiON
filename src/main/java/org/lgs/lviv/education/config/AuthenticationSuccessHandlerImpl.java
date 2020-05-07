@@ -35,6 +35,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
             request.getSession().setAttribute("userEmail", user.getEmail());
         });
 
+        //todo add current url
         SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
         String redirectUrl = savedRequest == null ? "/" : savedRequest.getRedirectUrl();
 

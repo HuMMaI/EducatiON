@@ -1,5 +1,6 @@
 package org.lgs.lviv.education.controllers;
 
+import org.lgs.lviv.education.dtos.FacultyEditDto;
 import org.lgs.lviv.education.entities.Faculty;
 import org.lgs.lviv.education.entities.FacultySubjects;
 import org.lgs.lviv.education.entities.Roles;
@@ -38,17 +39,15 @@ public class FacultyController {
         return "facultyEditPage";
     }
 
-    //todo make dto
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public String facultyEdit(
             @RequestParam("id") Faculty faculty,
-            @RequestParam String name,
-            @RequestParam int numberOfSeats,
+            @ModelAttribute FacultyEditDto facultyEditDto,
             @RequestParam Map<String, String> form
     ){
-        faculty.setName(name);
-        faculty.setNumberOfSeats(numberOfSeats);
+        faculty.setName(facultyEditDto.getName());
+        faculty.setNumberOfSeats(facultyEditDto.getNumberOfSeats());
 
         faculty.getSubjects().clear();
 
