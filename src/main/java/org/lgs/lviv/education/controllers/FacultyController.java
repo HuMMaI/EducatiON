@@ -12,9 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -68,13 +66,26 @@ public class FacultyController {
 
     @GetMapping("/add")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String facultyAdd(){
+    public String facultyAdd(Model model){
+        model.addAttribute("subjects", FacultySubjects.values());
+
         return "facultyAdd";
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String facultyCreate(@ModelAttribute Faculty faculty){
+    public String facultyCreate(@ModelAttribute Faculty faculty, @RequestParam Map<String, String> form){
+        Set<String> subjects = Arrays.stream(FacultySubjects.values())
+                .map(FacultySubjects::name)
+                .collect(Collectors.toSet());
+
+        faculty.setSubjects(new HashSet<>());
+
+        for (String key : form.keySet()) {
+            if (subjects.contains(key)){
+                faculty.getSubjects().add(FacultySubjects.valueOf(key));
+            }
+        }
         facultyService.create(faculty);
 
         return "redirect:/faculty";
