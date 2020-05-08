@@ -24,4 +24,8 @@ public class SubjectService {
     public void save(Subject subject) {
         subjectsRepository.save(subject);
     }
+
+    public List<Subject> findByUserId(int userId) {
+        return subjectsRepository.findByUserId(userId);
+    }
 }

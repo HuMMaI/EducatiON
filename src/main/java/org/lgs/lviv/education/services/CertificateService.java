@@ -24,4 +24,8 @@ public class CertificateService {
     public void save(Certificate certificate) {
         certificatesRepository.save(certificate);
     }
+
+    public List<Certificate> findByUserId(int userId) {
+        return certificatesRepository.findByUserId(userId);
+    }
 }
