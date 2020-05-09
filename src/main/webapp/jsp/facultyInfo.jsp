@@ -17,5 +17,12 @@
     <c:if test="${!status.last}">, </c:if>
 </c:forEach>
 
+<form action="/faculty/apply" method="post">
+    <input type="hidden" value="${userId}" name="user">
+    <input type="hidden" value="${faculty.id}" name="faculty">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <button type="submit">Apply</button>
+</form>
+
 </body>
 </html>

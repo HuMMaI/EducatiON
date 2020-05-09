@@ -5,6 +5,8 @@ import org.lgs.lviv.education.repositories.RequestsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RequestService {
     private final RequestsRepository requestsRepository;
@@ -17,5 +19,9 @@ public class RequestService {
 
     public void create(Request request) {
         requestsRepository.save(request);
+    }
+
+    public List<Request> findByUserId(int userId) {
+        return requestsRepository.findByUserId(userId);
     }
 }
