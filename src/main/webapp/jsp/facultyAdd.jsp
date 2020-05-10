@@ -47,10 +47,16 @@
                     <form action="">
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <input type="text" class="form-control field-create" placeholder="Name" name="facultyName">
+                                <input type="text" class="form-control field-create" placeholder="Name" name="facultyName" id="faculty-name">
+                                <div class="invalid-feedback error-hidden" id="name-error">
+
+                                </div>
                             </div>
                             <div class="col-12 col-md-6">
-                                <input type="number" class="form-control field-create" placeholder="Number of seats" name="numberOfSeats">
+                                <input type="number" class="form-control field-create" placeholder="Number of seats" name="numberOfSeats" id="number-of-seats">
+                                <div class="invalid-feedback error-hidden" id="number-of-seats-error">
+
+                                </div>
                             </div>
                             <div class="col-12" id="faculty-subjects">
 

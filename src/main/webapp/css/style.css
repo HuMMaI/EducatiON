@@ -1753,3 +1753,17 @@ a.icon .glyphicon {
 .field-create-m {
     margin-bottom: 0 !important;
 }
+
+.error-hidden {
+    display: none;
+}
+
+.error-color {
+    background-color: #f38f99 !important;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

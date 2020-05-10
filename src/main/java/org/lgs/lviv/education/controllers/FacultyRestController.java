@@ -5,10 +5,16 @@ import org.lgs.lviv.education.entities.Faculty;
 import org.lgs.lviv.education.entities.FacultySubjects;
 import org.lgs.lviv.education.services.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
@@ -24,25 +30,40 @@ public class FacultyRestController {
 
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
-    public void facultyCreate(@ModelAttribute FacultyAddDto facultyAddDto){
-        Set<String> subjects = Arrays.stream(FacultySubjects.values())
-                .map(FacultySubjects::name)
-                .collect(Collectors.toSet());
+    public ResponseEntity<?> facultyCreate(
+            @Valid @ModelAttribute FacultyAddDto facultyAddDto,
+            BindingResult bindingResult,
+            Model model
+    ){
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = bindingResult.getFieldErrors().stream()
+                    .collect(Collectors.toMap(
+                            fieldError -> fieldError.getField() + "Error",
+                            FieldError::getDefaultMessage
+                    ));
 
-        Faculty faculty = new Faculty();
+            return new ResponseEntity(errorsMap, HttpStatus.BAD_REQUEST);
+        } else {
+            Set<String> subjects = Arrays.stream(FacultySubjects.values())
+                    .map(FacultySubjects::name)
+                    .collect(Collectors.toSet());
 
-        faculty.setName(facultyAddDto.getName());
-        faculty.setNumberOfSeats(facultyAddDto.getNumberOfSeats());
+            Faculty faculty = new Faculty();
 
-        faculty.setSubjects(new HashSet<>());
+            faculty.setName(facultyAddDto.getName());
+            faculty.setNumberOfSeats(facultyAddDto.getNumberOfSeats());
 
-        for (String key : facultyAddDto.getSubjects()) {
-            if (subjects.contains(key)){
-                faculty.getSubjects().add(FacultySubjects.valueOf(key));
+            faculty.setSubjects(new HashSet<>());
+
+            for (String key : facultyAddDto.getSubjects()) {
+                if (subjects.contains(key)){
+                    faculty.getSubjects().add(FacultySubjects.valueOf(key));
+                }
             }
+            facultyService.create(faculty);
+
+            return new ResponseEntity(HttpStatus.OK);
         }
-        facultyService.create(faculty);
     }
 
     @GetMapping("/add")
