@@ -79,7 +79,7 @@
                                     <button class="btn mosh-btn mt-50" type="submit">Apply</button>
                                 </security:authorize>
                                 <security:authorize access="hasAuthority('ADMIN')">
-                                    <a class="btn mosh-btn mt-50 ml-4" href="/faculty/${faculty.id}">Edit</a>
+                                    <a class="btn mosh-btn mt-50 ml-4" href="/faculty/edit?id=${faculty.id}">Edit</a>
                                 </security:authorize>
                             </div>
                         </form>

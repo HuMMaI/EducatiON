@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class FacultyAddDto {
+public class FacultyDto {
     @NotBlank(message = "Faculty name can`t be empty!")
     private String name;
 

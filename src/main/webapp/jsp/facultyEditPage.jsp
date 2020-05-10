@@ -47,26 +47,22 @@
                     <form action="/faculty" method="post">
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <input type="text" class="form-control field-create" placeholder="Name" name="name" value="${faculty.name}">
+                                <input type="text" class="form-control field-create" placeholder="Name" name="facultyName" id="faculty-name" value="">
+                                <div class="invalid-feedback error-hidden" id="name-error">
+
+                                </div>
                             </div>
                             <div class="col-12 col-md-6">
-                                <input type="number" class="form-control field-create" placeholder="Number of seats" name="numberOfSeats" value="${faculty.numberOfSeats}">
+                                <input type="number" class="form-control field-create" placeholder="Number of seats" name="numberOfSeats" id="number-of-seats" value="">
+                                <div class="invalid-feedback error-hidden" id="number-of-seats-error">
+
+                                </div>
                             </div>
-                            <div class="col-12">
-                                <c:forEach items="${subjects}" var="subject">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input type="checkbox" aria-label="Checkbox for following text input" name="${subject}" <c:if test='${faculty.subjects.contains(subject)}'>checked=checked</c:if>>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control field-create field-create-m" aria-label="Text input with checkbox" value="${subject.toString()}" disabled>
-                                    </div>
-                                </c:forEach>
+                            <div class="col-12" id="faculty-subjects">
+
                             </div>
-                            <input type="hidden" value="${faculty.id}" name="id">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <button class="btn mosh-btn mt-50" type="submit">Save</button>
+                            <button class="btn mosh-btn mt-50" id="save-btn" type="submit">Save</button>
                         </div>
                     </form>
                 </div>
@@ -85,5 +81,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
+<script src="${pageContext.request.contextPath}/js/faculty_edit.js"></script>
 </body>
 </html>

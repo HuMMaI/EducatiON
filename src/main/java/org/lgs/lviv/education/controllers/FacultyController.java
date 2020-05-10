@@ -31,40 +31,10 @@ public class FacultyController {
         return "facultyList";
     }
 
-    @GetMapping("{faculty}")
+    @GetMapping("/edit")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String facultyEditForm(@PathVariable Faculty faculty, Model model){
-        model.addAttribute("faculty", faculty);
-        model.addAttribute("subjects", FacultySubjects.values());
-
+    public String facultyEditForm(){
         return "facultyEditPage";
-    }
-
-    @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String facultyEdit(
-            @RequestParam("id") Faculty faculty,
-            @ModelAttribute FacultyEditDto facultyEditDto,
-            @RequestParam Map<String, String> form
-    ){
-        faculty.setName(facultyEditDto.getName());
-        faculty.setNumberOfSeats(facultyEditDto.getNumberOfSeats());
-
-        faculty.getSubjects().clear();
-
-        Set<String> subjects = Arrays.stream(FacultySubjects.values())
-                .map(FacultySubjects::name)
-                .collect(Collectors.toSet());
-
-        for (String key : form.keySet()) {
-            if (subjects.contains(key)){
-                faculty.getSubjects().add(FacultySubjects.valueOf(key));
-            }
-        }
-
-        facultyService.save(faculty);
-
-        return "redirect:/faculty";
     }
 
     @GetMapping("/add")
