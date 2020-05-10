@@ -1,7 +1,6 @@
 package org.lgs.lviv.education.controllers;
 
 import org.lgs.lviv.education.dtos.FacultyDto;
-import org.lgs.lviv.education.dtos.FacultyEditDto;
 import org.lgs.lviv.education.entities.Faculty;
 import org.lgs.lviv.education.entities.FacultySubjects;
 import org.lgs.lviv.education.services.FacultyService;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,11 +32,7 @@ public class FacultyRestController {
             BindingResult bindingResult
     ){
         if (bindingResult.hasErrors()) {
-            Map<String, String> errorsMap = bindingResult.getFieldErrors().stream()
-                    .collect(Collectors.toMap(
-                            fieldError -> fieldError.getField() + "Error",
-                            FieldError::getDefaultMessage
-                    ));
+            Map<String, String> errorsMap = ControllerUtil.errorMapper(bindingResult);
 
             return new ResponseEntity(errorsMap, HttpStatus.BAD_REQUEST);
         } else {
@@ -86,11 +80,7 @@ public class FacultyRestController {
             BindingResult bindingResult
     ){
         if (bindingResult.hasErrors()) {
-            Map<String, String> errorsMap = bindingResult.getFieldErrors().stream()
-                    .collect(Collectors.toMap(
-                            fieldError -> fieldError.getField() + "Error",
-                            FieldError::getDefaultMessage
-                    ));
+            Map<String, String> errorsMap = ControllerUtil.errorMapper(bindingResult);
 
             return new ResponseEntity(errorsMap, HttpStatus.BAD_REQUEST);
         } else {

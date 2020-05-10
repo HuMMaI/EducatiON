@@ -1,8 +1,6 @@
 package org.lgs.lviv.education.controllers;
 
-import org.lgs.lviv.education.dtos.FacultyEditDto;
 import org.lgs.lviv.education.entities.Faculty;
-import org.lgs.lviv.education.entities.FacultySubjects;
 import org.lgs.lviv.education.entities.Request;
 import org.lgs.lviv.education.services.FacultyService;
 import org.lgs.lviv.education.services.RequestService;
@@ -13,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/faculty")
