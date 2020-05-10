@@ -1,3 +1,55 @@
+$.get("/grades/api/subjects-list")
+    .done(function (subjects) {
+        var subjectCards = "";
+
+        jQuery.each(subjects, function (key, item) {
+            subjectCards += "<div class=\"card mb-3 w-50 mr-auto ml-auto\" style=\"max-width: 540px;\">\n" +
+                "<div class=\"row no-gutters\">\n" +
+                "<div class=\"col-md-8\">\n" +
+                "<div class=\"card-body\">\n" +
+                "<h5 class=\"card-title\">" + item.name + "</h5>\n" +
+                "<p class=\"card-text\">Grade: " + item.grade + "</p>\n" +
+                "<p class=\"card-text\"><small class=\"text-muted\">Last updated 3 mins ago</small></p>\n" +
+                "</div>\n" +
+                "</div>\n" +
+                "<div class=\"col-md-4 d-flex flex-column justify-content-around\">\n" +
+                "<input type=\"hidden\" value=\"" + item.id + "\" name=\"subjectId\">\n" +
+                "<button class=\"btn mosh-btn\" type=\"submit\">Edit</button>\n" +
+                "<button class=\"btn mosh-btn\" type=\"submit\">Delete</button>\n" +
+                "</div>\n" +
+                "</div>\n" +
+                "</div>"
+        });
+
+        $("#subject-cards").html(subjectCards);
+    });
+
+$.get("/grades/api/certificate-list")
+    .done(function (certificate) {
+        var certificateCards = "";
+
+        jQuery.each(certificate, function (key, item) {
+            certificateCards += "<div class=\"card mb-3 w-50 mr-auto ml-auto\" style=\"max-width: 540px;\">\n" +
+                "<div class=\"row no-gutters\">\n" +
+                "<div class=\"col-md-8\">\n" +
+                "<div class=\"card-body\">\n" +
+                "<h5 class=\"card-title\">" + item.name + "</h5>\n" +
+                "<p class=\"card-text\">Grade: " + item.grade + "</p>\n" +
+                "<p class=\"card-text\"><small class=\"text-muted\">Last updated 3 mins ago</small></p>\n" +
+                "</div>\n" +
+                "</div>\n" +
+                "<div class=\"col-md-4 d-flex flex-column justify-content-around\">\n" +
+                "<input type=\"hidden\" value=\"" + item.id + "\" name=\"certificateId\">\n" +
+                "<button class=\"btn mosh-btn\" type=\"submit\">Edit</button>\n" +
+                "<button class=\"btn mosh-btn\" type=\"submit\">Delete</button>\n" +
+                "</div>\n" +
+                "</div>\n" +
+                "</div>"
+        });
+
+        $("#certificate-cards").html(certificateCards);
+    });
+
 $("#add-btn").click(function (event) {
     event.preventDefault();
 

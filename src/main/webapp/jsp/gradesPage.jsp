@@ -71,24 +71,8 @@
     </div>
 
     <div class="container">
-        <div class="d-flex flex-wrap">
-            <c:forEach items="${subjects}" var="subject">
-                <div class="card mb-3 w-50 mr-auto ml-auto" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">${subject.name}</h5>
-                                <p class="card-text">Grade: ${subject.grade}</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-flex flex-column justify-content-around">
-                            <button class="btn mosh-btn" type="submit">Edit</button>
-                            <button class="btn mosh-btn" type="submit">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
+        <div class="d-flex flex-wrap" id="subject-cards">
+
         </div>
     </div>
 
@@ -124,24 +108,8 @@
     </div>
 
     <div class="container">
-        <div class="d-flex flex-wrap">
-            <c:forEach items="${certificates}" var="certificate">
-                <div class="card mb-3 w-50 mr-auto ml-auto" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">${certificate.name}</h5>
-                                <p class="card-text">Grade: ${certificate.grade}</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-flex flex-column justify-content-around">
-                            <button class="btn mosh-btn" type="submit">Edit</button>
-                            <button class="btn mosh-btn" type="submit">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
+        <div class="d-flex flex-wrap" id="certificate-cards">
+
         </div>
     </div>
 </section>
