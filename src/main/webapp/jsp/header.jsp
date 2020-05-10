@@ -11,50 +11,72 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
+
     <title>Hello, world!</title>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Education</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<header class="header_area clearfix">
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-12 h-100">
+                <div class="menu_area h-100">
+                    <nav class="navbar h-100 navbar-expand-lg align-items-center">
+                        <a class="navbar-brand" href="/"><img src="${pageContext.request.contextPath}/img/core-img/education_logo.png" alt="logo"></a>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/faculty">Faculties</a>
-            </li>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mosh-navbar" aria-controls="mosh-navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
-            <security:authorize access="hasAuthority('ADMIN')">
-                <li class="nav-item">
-                    <a class="nav-link" href="/user">User list</a>
-                </li>
-            </security:authorize>
-
-        </ul>
-
-        <security:authorize access="isAuthenticated()">
-            <form class="form-inline my-2 my-lg-0" action="/logout" method="post">
-                <span style="margin-right: 5px; color: white"><b><%=session.getAttribute("userFirstName") %></b></span>
-                <span style="margin-right: 5px; color: white"><%=session.getAttribute("userLastName") %></span>
-                <button type="submit" class="btn btn-outline-warning">Logout</button>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            </form>
-        </security:authorize>
-
-        <security:authorize access="isAnonymous()">
-            <form class="form-inline my-2 my-lg-0">
-                <a class="btn btn-outline-success" href="/login" role="button" style="margin-right: 5px">Sign In</a>
-                <a class="btn btn-outline-warning" href="/registration" role="button">Sign Up</a>
-            </form>
-        </security:authorize>
+                        <div class="collapse navbar-collapse justify-content-end" id="mosh-navbar">
+                            <ul class="navbar-nav animated" id="nav">
+                                <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/faculty">Faculties</a></li>
+                                <security:authorize access="hasAuthority('ENROLLEE')">
+                                    <li class="nav-item"><a class="nav-link" href="/grades">Grades list</a></li>
+                                </security:authorize>
+                                <security:authorize access="hasAuthority('ADMIN')">
+                                    <li class="nav-item"><a class="nav-link" href="/user">User list</a></li>
+                                </security:authorize>
+                            </ul>
+                            <div class="search-form-area animated">
+                                <form action="#" method="post">
+                                    <input type="search" name="search" id="search" placeholder="Type keywords &amp; hit enter">
+                                    <button type="submit" class="d-none"><img src="${pageContext.request.contextPath}/img/core-img/search-icon.png" alt="Search"></button>
+                                </form>
+                            </div>
+                            <div class="search-button">
+                                <a href="#" id="search-btn"><img src="${pageContext.request.contextPath}/img/core-img/search-icon.png" alt="Search"></a>
+                            </div>
+                            <security:authorize access="isAnonymous()">
+                                <div class="login-register-btn">
+                                    <a href="/login">Login</a>
+                                    <a href="/registration">/ Register</a>
+                                </div>
+                            </security:authorize>
+                            <security:authorize access="isAuthenticated()">
+                                <div class="dropdown" id="user-img-container">
+                                    <img class="btn dropdown-toggle" src="${pageContext.request.contextPath}/img/core-img/user_default.png" alt="dropdown image" data-toggle="dropdown" id="user-img" aria-expanded="false">
+                                    <input type="hidden" value="0" id="click-listener">
+                                    <ul class="dropdown-menu dropdown-menu-right" id="user-panel">
+                                        <li><a class="dropdown-item" href="/cabinet">Cabinet</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        <li>
+                                            <form action="/logout" method="post" id="logout-form">
+                                                <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit()">Log Out</a>
+                                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </security:authorize>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
     </div>
-</nav>
+</header>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -63,5 +85,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<%--<script src="${pageContext.request.contextPath}/js/header.js"></script>--%>
 </body>
 </html>

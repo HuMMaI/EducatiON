@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/registration", "/faculty").permitAll()
+                    .antMatchers("/", "/registration", "/faculty", "/confirmEmail", "/faculty/info").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .logout()
                     .permitAll()
                 .and()
-                    .logout().logoutSuccessUrl("/login?logout")
+                    .logout().logoutSuccessUrl("/")
                 .and()
                     .exceptionHandling().accessDeniedPage("/403")
                 .and()

@@ -25,10 +25,16 @@ public class User {
     @Column(name = "role")
     private Set<Roles> roles;
 
+    @Column(name = "cover_id")
+    private String coverId;
+
+    private boolean isEmailVerify;
+    private String verifyHashCode;
+
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password, String coverId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -81,5 +87,29 @@ public class User {
 
     public void setRoles(Set<Roles> roles) {
         this.roles = roles;
+    }
+
+    public String getCoverId() {
+        return coverId;
+    }
+
+    public void setCoverId(String coverId) {
+        this.coverId = coverId;
+    }
+
+    public boolean isEmailVerify() {
+        return isEmailVerify;
+    }
+
+    public void setEmailVerify(boolean emailVerify) {
+        isEmailVerify = emailVerify;
+    }
+
+    public String getVerifyHashCode() {
+        return verifyHashCode;
+    }
+
+    public void setVerifyHashCode(String verifyHashCode) {
+        this.verifyHashCode = verifyHashCode;
     }
 }
