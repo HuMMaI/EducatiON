@@ -44,28 +44,19 @@
             <div class="col-12">
                 <div class="contact-form-area">
                     <h2>New faculty</h2>
-                    <form action="/faculty/add" method="post">
+                    <form action="">
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <input type="text" class="form-control field-create" placeholder="Name" name="name">
+                                <input type="text" class="form-control field-create" placeholder="Name" name="facultyName">
                             </div>
                             <div class="col-12 col-md-6">
                                 <input type="number" class="form-control field-create" placeholder="Number of seats" name="numberOfSeats">
                             </div>
-                            <div class="col-12">
-                                <c:forEach items="${subjects}" var="subject">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input type="checkbox" aria-label="Checkbox for following text input" name="${subject}">
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control field-create field-create-m" aria-label="Text input with checkbox" value="${subject.toString()}" disabled>
-                                    </div>
-                                </c:forEach>
+                            <div class="col-12" id="faculty-subjects">
+
                             </div>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <button class="btn mosh-btn mt-50" type="submit">Create</button>
+                            <button class="btn mosh-btn mt-50" id="create-btn" type="submit">Create</button>
                         </div>
                     </form>
                 </div>
@@ -84,5 +75,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
+<script src="${pageContext.request.contextPath}/js/faculty_add.js"></script>
 </body>
 </html>
