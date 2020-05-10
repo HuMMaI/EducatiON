@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Create faculty</title>
+    <title>Grades</title>
 </head>
 <body>
 
@@ -44,18 +44,24 @@
             <div class="col-12">
                 <div class="contact-form-area">
                     <h2>Subjects</h2>
-                    <form action="/grades/add-subject" method="post">
+                    <form action="">
                         <div class="row">
                             <div class="col-12 col-md-5">
-                                <input type="text" class="form-control field-create" placeholder="Subject name" name="name">
+                                <input type="text" class="form-control field-create" placeholder="Subject name" name="subjectName" id="subject-name">
+                                <div class="invalid-feedback error-hidden" id="subject-name-error">
+
+                                </div>
                             </div>
                             <div class="col-12 col-md-5">
-                                <input type="number" class="form-control field-create" placeholder="Subject grade" name="grade">
+                                <input type="number" class="form-control field-create" placeholder="Subject grade" name="grade" id="subject-grade">
+                                <div class="invalid-feedback error-hidden" id="grade-error">
+
+                                </div>
                             </div>
                             <div class="col-12 col-md-2">
-                                <input type="hidden" value="${userId}" name="user">
+                                <input type="hidden" value="subject" name="subject">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button class="btn mosh-btn" type="submit">Add subject</button>
+                                <button class="btn mosh-btn" id="add-btn" type="submit">Add subject</button>
                             </div>
                         </div>
                     </form>
@@ -91,18 +97,24 @@
             <div class="col-12">
                 <div class="contact-form-area">
                     <h2>Certificate</h2>
-                    <form action="/grades/add-certificate" method="post">
+                    <form action="">
                         <div class="row">
                             <div class="col-12 col-md-5">
-                                <input type="text" class="form-control field-create" placeholder="Certificate subject name" name="name">
+                                <input type="text" class="form-control field-create" placeholder="Certificate subject name" name="name" id="certificate-name">
+                                <div class="invalid-feedback error-hidden" id="certificate-name-error">
+
+                                </div>
                             </div>
                             <div class="col-12 col-md-5">
-                                <input type="number" class="form-control field-create" placeholder="Certificate subject grade" name="grade">
+                                <input type="number" class="form-control field-create" placeholder="Certificate subject grade" name="grade" id="certificate-grade">
+                                <div class="invalid-feedback error-hidden" id="certificate-grade-error">
+
+                                </div>
                             </div>
                             <div class="col-12 col-md-2">
-                                <input type="hidden" value="${userId}" name="user">
+                                <input type="hidden" value="certificate" name="certificate">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button class="btn mosh-btn" type="submit">Add subject</button>
+                                <button class="btn mosh-btn" id="certificate-add-btn" type="submit">Add subject</button>
                             </div>
                         </div>
                     </form>
@@ -144,5 +156,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
+<script src="${pageContext.request.contextPath}/js/grades_page.js"></script>
 </body>
 </html>
