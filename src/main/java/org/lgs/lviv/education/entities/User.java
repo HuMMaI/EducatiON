@@ -31,6 +31,8 @@ public class User {
     private boolean isEmailVerify;
     private String verifyHashCode;
 
+    private boolean isApply;
+
     public User() {
     }
 
@@ -111,5 +113,13 @@ public class User {
 
     public void setVerifyHashCode(String verifyHashCode) {
         this.verifyHashCode = verifyHashCode;
+    }
+
+    public boolean isApply() {
+        return isApply;
+    }
+
+    public void setApply(boolean apply) {
+        isApply = apply;
     }
 }

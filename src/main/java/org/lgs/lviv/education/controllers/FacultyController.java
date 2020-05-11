@@ -48,11 +48,4 @@ public class FacultyController {
 
         return "facultyInfo";
     }
-
-    @PostMapping("/apply")
-    public String apply(@ModelAttribute Request request){
-        requestService.create(request);
-
-        return "redirect:/faculty";
-    }
 }

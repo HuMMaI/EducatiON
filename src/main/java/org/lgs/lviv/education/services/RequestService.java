@@ -24,4 +24,8 @@ public class RequestService {
     public List<Request> findByUserId(int userId) {
         return requestsRepository.findByUserId(userId);
     }
+
+    public void save(Request request) {
+        requestsRepository.save(request);
+    }
 }

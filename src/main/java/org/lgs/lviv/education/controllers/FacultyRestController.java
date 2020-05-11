@@ -1,9 +1,11 @@
 package org.lgs.lviv.education.controllers;
 
 import org.lgs.lviv.education.dtos.FacultyDto;
-import org.lgs.lviv.education.entities.Faculty;
-import org.lgs.lviv.education.entities.FacultySubjects;
+import org.lgs.lviv.education.entities.*;
 import org.lgs.lviv.education.services.FacultyService;
+import org.lgs.lviv.education.services.RequestService;
+import org.lgs.lviv.education.services.SubjectService;
+import org.lgs.lviv.education.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,6 +23,12 @@ import java.util.stream.Stream;
 public class FacultyRestController {
     @Autowired
     private FacultyService facultyService;
+    @Autowired
+    private SubjectService subjectService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private RequestService requestService;
 
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -104,4 +109,55 @@ public class FacultyRestController {
             return new ResponseEntity(HttpStatus.OK);
         }
     }
+
+    @PostMapping("/apply")
+    @PreAuthorize("hasAuthority('ENROLLEE')")
+    public ResponseEntity<?> apply(@ModelAttribute Request request){
+        User user = request.getUser();
+        Faculty faculty = request.getFaculty();
+
+        Map<String, String> errorsMap = new HashMap<>();
+
+        Set<String> userSubjects = subjectService.findByUserId(user.getId()).stream()
+                .map(Subject::getName)
+                .collect(Collectors.toSet());
+        Set<String> subjects = faculty.getSubjects().stream()
+                .map(FacultySubjects::toString)
+                .collect(Collectors.toSet());
+
+        if (userSubjects.isEmpty() || userSubjects.size() < subjects.size()){
+            errorsMap.put("subjectsEmptyError", "Please, add information about subjects");
+
+            return new ResponseEntity(errorsMap, HttpStatus.BAD_REQUEST);
+        }
+
+        if (!userSubjects.containsAll(subjects)){
+            StringBuilder subjectStr = new StringBuilder();
+            subjectStr.append("You have no such items: ");
+
+            for (String key : subjects){
+                if (!userSubjects.contains(key)){
+                    subjectStr.append(key).append("; ");
+                }
+            }
+
+            errorsMap.put("applyError", subjectStr.toString());
+        }
+
+        if (user.isApply()){
+            errorsMap.put("applyError", "You have already applied!");
+        }
+
+        if (!errorsMap.isEmpty()){
+            return new ResponseEntity(errorsMap, HttpStatus.BAD_REQUEST);
+        }
+
+        user.setApply(true);
+        userService.save(user);
+
+        requestService.save(request);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }
