@@ -2,6 +2,7 @@ package org.lgs.lviv.education.controllers;
 
 import org.lgs.lviv.education.dtos.GradeDto;
 import org.lgs.lviv.education.entities.Certificate;
+import org.lgs.lviv.education.entities.FacultySubjects;
 import org.lgs.lviv.education.entities.Subject;
 import org.lgs.lviv.education.entities.User;
 import org.lgs.lviv.education.services.CertificateService;
@@ -10,6 +11,7 @@ import org.lgs.lviv.education.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
+@PreAuthorize("hasAuthority('ENROLLEE')")
 @RequestMapping("/grades/api")
 public class GradesRestController {
     @Autowired
@@ -36,6 +41,12 @@ public class GradesRestController {
     @GetMapping("/certificate-list")
     public List<Certificate> getCertificate(){
         return certificateService.findAll();
+    }
+
+    @GetMapping("/subjects")
+    public Map<FacultySubjects, String> getSubjectMap(){
+        return Stream.of(FacultySubjects.values())
+                .collect(Collectors.toMap(s -> s, FacultySubjects::toString));
     }
 
     @PostMapping("/add")
@@ -72,5 +83,10 @@ public class GradesRestController {
         }
 
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/subject-delete/{subject}")
+    public void deleteSubject(@PathVariable Subject subject){
+        subjectService.delete(subject);
     }
 }

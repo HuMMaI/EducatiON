@@ -1,3 +1,14 @@
+$.get("/grades/api/subjects")
+    .done(function (subjects) {
+        var subjectList = "";
+
+        jQuery.each(subjects, function (key, item) {
+            subjectList += "<option value=\"" + item + "\">" + item + "</option>";
+        });
+
+        $("#subject-name").append(subjectList);
+    });
+
 $.get("/grades/api/subjects-list")
     .done(function (subjects) {
         var subjectCards = "";
@@ -15,7 +26,7 @@ $.get("/grades/api/subjects-list")
                 "<div class=\"col-md-4 d-flex flex-column justify-content-around\">\n" +
                 "<input type=\"hidden\" value=\"" + item.id + "\" name=\"subjectId\">\n" +
                 "<button class=\"btn mosh-btn\" type=\"submit\">Edit</button>\n" +
-                "<button class=\"btn mosh-btn\" type=\"submit\">Delete</button>\n" +
+                "<button class=\"btn mosh-btn delete-btn\" id=\"" + item.id + " subject\" type=\"submit\">Delete</button>\n" +
                 "</div>\n" +
                 "</div>\n" +
                 "</div>"
@@ -102,7 +113,7 @@ $("#add-btn").click(function (event) {
         });
 });
 
-$("#subject-name").keypress(function () {
+$("#subject-name").change(function () {
     $("#subject-name").removeClass("is-invalid");
     $("#subject-name").removeClass("error-color");
     $("#subject-name-error").addClass("error-hidden");
@@ -180,4 +191,21 @@ $("#certificate-grade").keypress(function () {
     $("#certificate-grade").removeClass("error-color");
     $("#certificate-grade-error").addClass("error-hidden");
     $("#certificate-grade-error").html();
+});
+
+$(document).on("click", ".delete-btn", function (event) {
+    event.preventDefault();
+
+    var idStr = $(".delete-btn").attr("id");
+    var idArray = idStr.split(/\s+/);
+    $(".delete-btn").prop("disabled", true);
+
+    $.ajax({
+        url: "/grades/api/subject-delete/" + idArray[0],
+        headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+        type: "DELETE",
+        success: function () {
+            location.reload();
+        }
+    });
 });

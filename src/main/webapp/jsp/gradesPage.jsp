@@ -47,7 +47,14 @@
                     <form action="">
                         <div class="row">
                             <div class="col-12 col-md-5">
-                                <input type="text" class="form-control field-create" placeholder="Subject name" name="subjectName" id="subject-name">
+<%--                                <input type="text" class="form-control field-create" placeholder="Subject name" name="subjectName" id="subject-name">--%>
+<%--                                <div class="invalid-feedback error-hidden" id="subject-name-error">--%>
+
+<%--                                </div>--%>
+
+                                <select class="form-control field-create" id="subject-name" required>
+                                    <option value="" disabled selected hidden>Select subject</option>
+                                </select>
                                 <div class="invalid-feedback error-hidden" id="subject-name-error">
 
                                 </div>

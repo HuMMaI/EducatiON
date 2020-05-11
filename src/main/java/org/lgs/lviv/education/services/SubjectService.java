@@ -28,4 +28,8 @@ public class SubjectService {
     public List<Subject> findByUserId(int userId) {
         return subjectsRepository.findByUserId(userId);
     }
+
+    public void delete(Subject subject) {
+        subjectsRepository.delete(subject);
+    }
 }
