@@ -44,7 +44,7 @@
             <div class="col-12">
                 <div class="contact-form-area">
                     <h2>Edit faculty</h2>
-                    <form action="/faculty" method="post">
+                    <form action="">
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <input type="text" class="form-control field-create" placeholder="Name" name="facultyName" id="faculty-name" value="">

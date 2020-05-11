@@ -70,7 +70,7 @@
                                         ${role}<c:if test="${!status.last}">, </c:if>
                                     </c:forEach>
                                 </p>
-                                <a class="btn mosh-btn" href="/user/${user.id}">Edit</a>
+                                <a class="btn mosh-btn" href="/user/edit?id=${user.id}">Edit</a>
                             </div>
                         </div>
                     </div>
