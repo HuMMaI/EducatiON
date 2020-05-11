@@ -35,6 +35,11 @@ public class UserRestController {
         return Arrays.asList(Roles.values());
     }
 
+    @GetMapping
+    public List<User> getUsers(){
+        return userService.findAll();
+    }
+
     @PutMapping("/edit")
     public ResponseEntity<?> userSave(
             @RequestParam("id") User user,

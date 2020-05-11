@@ -51,31 +51,8 @@
                 </form>
             </div>
         </div>
-        <div class="d-flex flex-wrap">
-            <c:forEach items="${users}" var="user">
-                <div class="card mb-3 w-50 mr-auto ml-auto" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-4 d-flex flex-column justify-content-center">
-                            <img src="/user-cover-files/download/${user.coverId}" class="card-img" alt="user photo">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">User No.${user.id}</h5>
-                                <p class="card-text">
-                                    <b>First name:</b> ${user.firstName}<br>
-                                    <b>Last name:</b> ${user.lastName}<br>
-                                    <b>Email:</b> ${user.email}<br>
-                                    <b>Roles:</b>
-                                    <c:forEach items="${user.roles}" var="role" varStatus="status">
-                                        ${role}<c:if test="${!status.last}">, </c:if>
-                                    </c:forEach>
-                                </p>
-                                <a class="btn mosh-btn" href="/user/edit?id=${user.id}">Edit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
+        <div class="d-flex flex-wrap" id="user-list">
+
         </div>
     </div>
 </section>
@@ -90,6 +67,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
+<script src="${pageContext.request.contextPath}/js/user_list.js"></script>
 </body>
 </html>
 

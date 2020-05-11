@@ -4,7 +4,6 @@ import org.lgs.lviv.education.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -15,9 +14,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public String userList(Model model){
-        model.addAttribute("users", userService.findAll());
-
+    public String userList(){
         return "userList";
     }
 
