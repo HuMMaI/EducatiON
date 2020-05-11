@@ -106,6 +106,11 @@ $("#add-btn").click(function (event) {
                         $("#grade-error").removeClass("error-hidden");
                         $("#grade-error").html(item);
                         break;
+
+                    case "existError":
+                        $("#existError").removeClass("error-hidden");
+                        $("#message").html(item);
+                        break;
                 }
             });
 
@@ -125,6 +130,11 @@ $("#subject-grade").keypress(function () {
     $("#subject-grade").removeClass("error-color");
     $("#grade-error").addClass("error-hidden");
     $("#grade-error").html();
+});
+
+$("#subject-alert-close").click(function () {
+    $("#existError").addClass("error-hidden");
+    $("#message").html();
 });
 
 $("#certificate-add-btn").click(function (event) {

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -62,6 +63,16 @@ public class GradesRestController {
         }
 
         int userId = (int) request.getSession().getAttribute("userId");
+
+        boolean isSubjectExist = subjectService.subjectCheck(gradeDto.getName(), userId);
+
+        if (isSubjectExist){
+            Map<String, String> errorMap = new HashMap<>();
+            errorMap.put("existError", "You can`t added this subject because it has already been added!");
+
+            return new ResponseEntity(errorMap, HttpStatus.BAD_REQUEST);
+        }
+
         User user = userService.findById(userId);
 
         if (gradeDto.getGradeType().equals("subject")){

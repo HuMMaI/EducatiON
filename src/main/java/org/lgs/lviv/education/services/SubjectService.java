@@ -32,4 +32,14 @@ public class SubjectService {
     public void delete(Subject subject) {
         subjectsRepository.delete(subject);
     }
+
+    public boolean subjectCheck(String subjectName, int userId) {
+        List<String> subjects = subjectsRepository.findAllSubjectNamesByUserId(userId);
+
+        if (subjects.isEmpty()){
+            return false;
+        }
+
+        return subjects.contains(subjectName);
+    }
 }

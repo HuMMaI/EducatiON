@@ -1755,7 +1755,8 @@ a.icon .glyphicon {
 }
 
 .error-hidden {
-    display: none;
+    visibility: hidden !important;
+    display: none !important;
 }
 
 .error-color {

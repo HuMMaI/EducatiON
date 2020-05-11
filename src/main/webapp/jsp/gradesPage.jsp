@@ -9,6 +9,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <title>Grades</title>
 </head>
@@ -44,14 +45,13 @@
             <div class="col-12">
                 <div class="contact-form-area">
                     <h2>Subjects</h2>
+                    <div class="alert alert-danger error-hidden d-flex flex-row" id="existError" role="alert">
+                        <span id="message"></span>
+                        <span class="alert-link ml-auto" id="subject-alert-close"><i class="fas fa-times"></i></span>
+                    </div>
                     <form action="">
                         <div class="row">
                             <div class="col-12 col-md-5">
-<%--                                <input type="text" class="form-control field-create" placeholder="Subject name" name="subjectName" id="subject-name">--%>
-<%--                                <div class="invalid-feedback error-hidden" id="subject-name-error">--%>
-
-<%--                                </div>--%>
-
                                 <select class="form-control field-create" id="subject-name" required>
                                     <option value="" disabled selected hidden>Select subject</option>
                                 </select>
@@ -88,6 +88,10 @@
             <div class="col-12">
                 <div class="contact-form-area">
                     <h2>Certificate</h2>
+                    <div class="alert alert-danger error-hidden d-flex flex-row" id="certificateExistError" role="alert">
+                        <span id="errorMessage"></span>
+                        <span class="alert-link ml-auto" id="certificate-alert-close"><i class="fas fa-times"></i></span>
+                    </div>
                     <form action="">
                         <div class="row">
                             <div class="col-12 col-md-5">
