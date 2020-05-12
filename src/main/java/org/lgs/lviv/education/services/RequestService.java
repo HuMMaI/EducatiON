@@ -31,4 +31,8 @@ public class RequestService {
 
         requestsRepository.save(request);
     }
+
+    public List<Request> findAllByStatus(String status) {
+        return requestsRepository.findAllByStatus(status);
+    }
 }

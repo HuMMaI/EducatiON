@@ -9,7 +9,7 @@ $.get("/grades/api/subjects")
         $("#subject-name").append(subjectList);
     });
 
-$.get("/grades/api/subjects-list")
+$.get("/grades/api/current-user-subjects")
     .done(function (subjects) {
         var subjectCards = "";
 
@@ -35,7 +35,7 @@ $.get("/grades/api/subjects-list")
         $("#subject-cards").html(subjectCards);
     });
 
-$.get("/grades/api/certificate-list")
+$.get("/grades/api/current-user-certificate")
     .done(function (certificate) {
         var certificateCards = "";
 

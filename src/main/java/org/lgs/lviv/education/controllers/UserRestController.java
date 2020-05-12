@@ -1,6 +1,7 @@
 package org.lgs.lviv.education.controllers;
 
 import org.lgs.lviv.education.dtos.UserDto;
+import org.lgs.lviv.education.dtos.UserEditDto;
 import org.lgs.lviv.education.entities.Roles;
 import org.lgs.lviv.education.entities.User;
 import org.lgs.lviv.education.services.UserService;
@@ -38,6 +39,18 @@ public class UserRestController {
     @GetMapping
     public List<User> getUsers(){
         return userService.findAll();
+    }
+
+    @GetMapping("/find")
+    public UserEditDto getUser(@RequestParam("id") User user){
+        UserEditDto userEditDto = new UserEditDto();
+
+        userEditDto.setFirstName(user.getFirstName());
+        userEditDto.setLastName(user.getLastName());
+        userEditDto.setEmail(user.getEmail());
+        userEditDto.setCoverId(user.getCoverId());
+
+        return userEditDto;
     }
 
     @PutMapping("/edit")

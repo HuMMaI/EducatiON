@@ -35,13 +35,27 @@ public class GradesRestController {
     private UserService userService;
 
     @GetMapping("/subjects-list")
-    public List<Subject> getSubjects(){
-        return subjectService.findAll();
+    public List<Subject> getSubjects(@RequestParam("userId") int userId){
+        return subjectService.findByUserId(userId);
     }
 
     @GetMapping("/certificate-list")
-    public List<Certificate> getCertificate(){
-        return certificateService.findAll();
+    public List<Certificate> getCertificate(@RequestParam("userId") int userId){
+        return certificateService.findByUserId(userId);
+    }
+
+    @GetMapping("/current-user-subjects")
+    public List<Subject> getSubjects(HttpServletRequest req){
+        int userId = (int) req.getSession().getAttribute("userId");
+
+        return subjectService.findByUserId(userId);
+    }
+
+    @GetMapping("/current-user-certificate")
+    public List<Certificate> getCertificate(HttpServletRequest req){
+        int userId = (int) req.getSession().getAttribute("userId");
+
+        return certificateService.findByUserId(userId);
     }
 
     @GetMapping("/subjects")

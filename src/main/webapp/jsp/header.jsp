@@ -37,6 +37,7 @@
                                 </security:authorize>
                                 <security:authorize access="hasAuthority('ADMIN')">
                                     <li class="nav-item"><a class="nav-link" href="/user">User list</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/requests">Request list</a></li>
                                 </security:authorize>
                             </ul>
                             <div class="search-form-area animated">
