@@ -1768,3 +1768,38 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+.status-canceled {
+    color: #fb0000;
+}
+
+.status-waiting {
+    color: #ffb100;
+}
+
+.status-accepted {
+    color: #4eda20;
+}
+
+.status-credited {
+    color: #249200;
+}
+
+.status-not-credited {
+    color: #8c0202;
+}
+
+.card-waiting {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.card-cancel {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.card-accept {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}

@@ -71,17 +71,17 @@
 
                     <div class="blog-post-categories mb-2">
                         <h5>First name</h5>
-                        <p>${user.firstName}</p>
+                        <p id="user-first-name"></p>
                     </div>
 
                     <div class="blog-post-categories mb-2">
                         <h5>Last name</h5>
-                        <p>${user.lastName}</p>
+                        <p id="user-last-name"></p>
                     </div>
 
                     <div class="blog-post-categories mb-2">
                         <h5>Email</h5>
-                        <p>${user.email}</p>
+                        <p id="user-email"></p>
                     </div>
                 </div>
             </div>
@@ -90,24 +90,8 @@
         <div class="row">
             <div class="col-12">
                 <h2>Requests</h2>
-                <div class="d-flex flex-wrap">
-                    <c:forEach items="${requests}" var="req">
-                        <div class="card mb-3 w-50 mr-auto ml-auto" style="max-width: 540px;">
-                            <div class="row no-gutters">
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Request No.${req.id}</h5>
-                                        <p class="card-text">Faculty: ${req.faculty.name}</p>
-                                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 d-flex flex-column justify-content-around text-center">
-                                    <p class="card-text">Status</p>
-                                    <button class="btn mosh-btn" type="submit">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
+                <div class="d-flex flex-wrap" id="user-requests">
+
                 </div>
             </div>
         </div>
@@ -122,5 +106,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
+<script src="${pageContext.request.contextPath}/js/cabinet.js"></script>
 </body>
 </html>

@@ -27,7 +27,7 @@ public class RequestService {
     }
 
     public void save(Request request) {
-        request.setStatus(RequestStatus.WAITING);
+        request.setStatus(RequestStatus.WAITING.toString());
 
         requestsRepository.save(request);
     }

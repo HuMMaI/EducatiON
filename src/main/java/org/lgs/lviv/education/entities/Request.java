@@ -17,7 +17,7 @@ public class Request {
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 
-    private RequestStatus status;
+    private String status;
 
     public Request() {
     }
@@ -51,11 +51,11 @@ public class Request {
         this.faculty = faculty;
     }
 
-    public RequestStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(RequestStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }
