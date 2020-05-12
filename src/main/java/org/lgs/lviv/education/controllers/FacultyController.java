@@ -38,14 +38,4 @@ public class FacultyController {
     public String facultyAdd(){
         return "facultyAdd";
     }
-
-    @GetMapping("/info")
-    public String facultyInfo(@RequestParam("id") Faculty faculty, Model model, HttpServletRequest request){
-        model.addAttribute("faculty", faculty);
-
-        int userId = (int) request.getSession().getAttribute("userId");
-        model.addAttribute("userId", userId);
-
-        return "facultyInfo";
-    }
 }

@@ -1,6 +1,7 @@
 package org.lgs.lviv.education.services;
 
 import org.lgs.lviv.education.entities.Request;
+import org.lgs.lviv.education.entities.RequestStatus;
 import org.lgs.lviv.education.repositories.RequestsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class RequestService {
     }
 
     public void save(Request request) {
+        request.setStatus(RequestStatus.WAITING);
+
         requestsRepository.save(request);
     }
 }
