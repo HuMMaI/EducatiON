@@ -11,10 +11,12 @@ $.get("/cabinet/api/user-info")
                 jQuery.each(data, function (i, item) {
                     var statusClass = (item.status === "Not credited") ? "status-not-credited" : "status-" + item.status.toLowerCase();
                     var cardStatusClass = "";
+                    var deleteBtn = "";
 
                     switch (item.status) {
                         case "Waiting":
                             cardStatusClass = "card-" + item.status.toLowerCase();
+                            deleteBtn += "<button class=\"btn mosh-btn\" type=\"submit\">Delete</button>\n";
                             break;
 
                         case "Canceled":
@@ -39,7 +41,7 @@ $.get("/cabinet/api/user-info")
                         "</div>\n" +
                         "<div class=\"col-md-4 d-flex flex-column justify-content-around text-center\">\n" +
                         "<p class=\"card-text " + statusClass + "\">" + item.status + "</p>\n" +
-                        "<button class=\"btn mosh-btn\" type=\"submit\">Delete</button>\n" +
+                         deleteBtn +
                         "</div>\n" +
                         "</div>\n" +
                         "</div>"

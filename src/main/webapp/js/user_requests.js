@@ -29,7 +29,7 @@ $.get("/requests/api/")
                 "<input type=\"hidden\" name=\"${_csrf.parameterName}\" value=\"${_csrf.token}\"/>\n" +
                 "<button class=\"btn mosh-btn accept-btn\" id=\"accept-btn " + item.id + "\" type=\"submit\">Accept</button>\n" +
                 "</form>\n" +
-                "<button class=\"btn mosh-btn cancel-btn\" id=\"cancel-btn " + item.user.id + "\" type=\"submit\">Cancel</button>\n" +
+                "<button class=\"btn mosh-btn cancel-btn\" request-id=\"" + item.id + "\" id=\"cancel-btn " + item.user.id + "\" type=\"submit\">Cancel</button>\n" +
                 "</div>\n" +
                 "</div>\n" +
                 "<div class=\"card-footer no-gutter error-hidden d-flex flex-row req-info\" id=\"req-info-" + item.user.id + "\">\n" +
@@ -148,6 +148,7 @@ $(document).on("click", ".cancel-btn", function (event) {
 
     var idStr = $(this).attr("id");
     var idArray = idStr.split(/\s+/);
+    var requestId = $(this).attr("request-id");
 
     $("#req-info-" + idArray[1]).html("");
 
@@ -160,9 +161,9 @@ $(document).on("click", ".cancel-btn", function (event) {
         "</div>" +
         "<form action=\"\">\n" +
         "<div class=\"input-group mb-3\">\n" +
-        "<input type=\"text\" class=\"form-control\" placeholder=\"Write cancel reason\" aria-label=\"Cancel reason\" aria-describedby=\"button-addon2\">\n" +
+        "<input type=\"text\" class=\"form-control request-cancel\" placeholder=\"Write cancel reason\" aria-label=\"Cancel reason\" aria-describedby=\"button-addon2\">\n" +
         "<div class=\"input-group-append\">\n" +
-        "<button class=\"btn btn-outline-secondary\" type=\"button\" id=\"button-addon2\">Send</button>\n" +
+        "<button class=\"btn btn-outline-secondary request-cancel\" type=\"button\" id=\"button-addon2 request-cancel " + requestId + "\">Send</button>\n" +
         "</div>\n" +
         "</div>" +
         "</form>\n" +
@@ -182,6 +183,24 @@ $(document).on("click", ".accept-btn", function (event) {
 
     $.ajax({
         url: "/statement/api/add?id=" + idArray[1],
+        headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+        type: "POST"
+    })
+        .done(function () {
+            location.reload();
+        });
+});
+
+$(document).on("click", ".request-cancel", function (event) {
+    event.preventDefault();
+
+    var idStr = $(this).attr("id");
+    var idArray = idStr.split(/\s+/);
+
+    $(".request-cancel").prop("disabled", true);
+
+    $.ajax({
+        url: "/statement/api/cancel?id=" + idArray[2],
         headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
         type: "POST"
     })

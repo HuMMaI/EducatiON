@@ -25,4 +25,9 @@ public class StatementRestController {
     public List<Statement> getRatingList(@RequestParam("id") Faculty faculty){
         return statementService.getRatingList(faculty.getId());
     }
+
+    @PostMapping("/cancel")
+    private void cancelStatement(@RequestParam("id") Request request){
+        statementService.saveCanceledRequest(request);
+    }
 }

@@ -51,6 +51,13 @@ public class StatementService {
         return statementRepository.findAllByFacultyIdAndOrderByGradeDesc(facultyId);
     }
 
+    public void saveCanceledRequest(Request request) {
+        request.setStatus(RequestStatus.CANCELED.toString());
+        request.getUser().setApply(false);
+
+        requestsRepository.save(request);
+    }
+
     private double round(Double value, int n){
         double newValue = value * Math.pow(10, n);
         int intValue = (int)Math.round(newValue);
