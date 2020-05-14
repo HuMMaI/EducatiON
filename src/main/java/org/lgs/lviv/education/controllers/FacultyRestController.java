@@ -49,6 +49,7 @@ public class FacultyRestController {
 
             faculty.setName(facultyDto.getName());
             faculty.setNumberOfSeats(facultyDto.getNumberOfSeats());
+            faculty.setSpecialization(facultyDto.getSpecialization());
 
             faculty.setSubjects(new HashSet<>());
 
@@ -62,6 +63,14 @@ public class FacultyRestController {
             return new ResponseEntity(HttpStatus.OK);
         }
     }
+
+    @GetMapping("/specializations")
+    public List<String> getSpecializations(){
+        return Stream.of(FacultySpecialization.values())
+                .map(FacultySpecialization::toString)
+                .collect(Collectors.toList());
+    }
+
 
     @GetMapping("/add")
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -91,6 +100,7 @@ public class FacultyRestController {
         } else {
             faculty.setName(facultyDto.getName());
             faculty.setNumberOfSeats(facultyDto.getNumberOfSeats());
+            faculty.setSpecialization(facultyDto.getSpecialization());
 
             faculty.getSubjects().clear();
 

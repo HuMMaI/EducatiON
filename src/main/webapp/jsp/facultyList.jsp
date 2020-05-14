@@ -65,7 +65,7 @@
                     <span class="alert-link ml-auto alert-close"><i class="fas fa-times"></i></span>
                 </div>
                 <div class="card text-center w-100 mb-3">
-                    <h5 class="card-header">IT</h5>
+                    <h5 class="card-header">${faculty.specialization}</h5>
                     <div class="card-body">
                         <h5 class="card-title">${faculty.name}</h5>
                         <p class="card-text">

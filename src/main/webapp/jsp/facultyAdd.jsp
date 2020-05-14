@@ -58,6 +58,14 @@
 
                                 </div>
                             </div>
+                            <div class="col-12" id="faculty-specialization">
+                                <select class="form-control field-create" id="specialization-name" required>
+                                    <option value="" disabled selected hidden>Select specialization</option>
+                                </select>
+                                <div class="invalid-feedback error-hidden" id="specialization-error">
+
+                                </div>
+                            </div>
                             <div class="col-12" id="faculty-subjects">
 
                             </div>

@@ -20,6 +20,8 @@ public class Faculty {
     @Column(name = "subject")
     private Set<FacultySubjects> subjects;
 
+    private String specialization;
+
     public Faculty() {
     }
 
@@ -58,5 +60,13 @@ public class Faculty {
 
     public void setSubjects(Set<FacultySubjects> subjects) {
         this.subjects = subjects;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
     }
 }
