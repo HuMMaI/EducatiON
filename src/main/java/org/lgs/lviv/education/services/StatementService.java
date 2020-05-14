@@ -55,7 +55,7 @@ public class StatementService {
     }
 
     public List<Statement> getRatingList(int facultyId){
-        return statementRepository.findAllByFacultyIdAndOrderByGradeDesc(facultyId);
+        return statementRepository.findAllByFacultyIdAndIsCreditedAndOrderByGradeDesc(facultyId);
     }
 
     public void saveCanceledRequest(Request request) {

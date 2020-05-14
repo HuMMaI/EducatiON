@@ -1,6 +1,5 @@
 package org.lgs.lviv.education.repositories;
 
-import org.lgs.lviv.education.entities.Faculty;
 import org.lgs.lviv.education.entities.Statement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,10 +12,10 @@ import java.util.List;
 
 @Repository
 public interface StatementRepository extends JpaRepository<Statement, Integer> {
-    @Query("SELECT s FROM Statement s WHERE s.faculty.id = :faculty ORDER BY s.grade DESC")
-    List<Statement> findAllByFacultyIdAndOrderByGradeDesc(@Param("faculty") int faculty);
+    @Query("SELECT s FROM Statement s WHERE s.faculty.id = :faculty AND s.isCredited = false ORDER BY s.grade DESC")
+    List<Statement> findAllByFacultyIdAndIsCreditedAndOrderByGradeDesc(@Param("faculty") int faculty);
 
-    @Query(value = "SELECT * FROM statements WHERE faculty_id = :facultyId ORDER BY grade DESC LIMIT :limit", nativeQuery = true)
+    @Query(value = "SELECT * FROM statements WHERE faculty_id = :facultyId AND is_credited = false ORDER BY grade DESC LIMIT :limit", nativeQuery = true)
     List<Statement> findAllByFacultyIdAndOrderByGradeDescLimit(@Param("facultyId") int facultyId, @Param("limit") int limit);
 
     @Modifying

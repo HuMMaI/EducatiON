@@ -28,6 +28,8 @@ $.get("/statement/api/rating-list?id=" + id)
 $("#close-set").click(function (event) {
     event.preventDefault();
 
+    $("#close-set").prop("disabled", true);
+
     var facultyId = id;
 
     $.ajax({
@@ -36,9 +38,6 @@ $("#close-set").click(function (event) {
         method: "POST"
     })
         .done(function () {
-            alert("done");
-        })
-        .fail(function () {
-            alert("fail");
+            location.reload();
         });
 });
