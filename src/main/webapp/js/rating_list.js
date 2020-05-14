@@ -5,6 +5,8 @@ $.get("/statement/api/rating-list?id=" + id)
     .done(function (statement) {
         var ratingTable = "";
 
+        $("#statement-id").val(statement[0].id);
+
         var number = 1;
         jQuery.each(statement, function (key, item) {
             ratingTable += "<tr>\n" +
@@ -22,3 +24,21 @@ $.get("/statement/api/rating-list?id=" + id)
 
         $("#rating-table-body").html(ratingTable);
     });
+
+$("#close-set").click(function (event) {
+    event.preventDefault();
+
+    var facultyId = id;
+
+    $.ajax({
+        url: "/statement/api/result?facultyId=" + id,
+        headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+        method: "POST"
+    })
+        .done(function () {
+            alert("done");
+        })
+        .fail(function () {
+            alert("fail");
+        });
+});

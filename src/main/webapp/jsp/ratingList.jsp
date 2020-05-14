@@ -44,6 +44,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="contact-form-area">
+                    <form action="">
+                        <input type="hidden" id="statement-id" value=""/>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <button class="btn mosh-btn mt-50 ml-4" id="close-set" type="submit">Close set</button>
+                    </form>
                     <table class="table table-striped table-dark">
                         <thead>
                             <tr>

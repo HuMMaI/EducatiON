@@ -1,6 +1,5 @@
 package org.lgs.lviv.education.services;
 
-import org.lgs.lviv.education.entities.Faculty;
 import org.lgs.lviv.education.entities.Request;
 import org.lgs.lviv.education.entities.RequestStatus;
 import org.lgs.lviv.education.entities.Statement;
@@ -56,6 +55,22 @@ public class StatementService {
         request.getUser().setApply(false);
 
         requestsRepository.save(request);
+    }
+
+    public void statementResult(int facultyId, int limit){
+        List<Statement> statementList = statementRepository.findAllByFacultyIdAndOrderByGradeDescLimit(facultyId, limit);
+
+        Integer[] ids = statementList.stream()
+                .map(Statement::getId)
+                .toArray(Integer[]::new);
+
+        statementRepository.setCreditedValue(ids);
+
+        Integer[] userIds = statementList.stream()
+                .map(s -> s.getUser().getId())
+                .toArray(Integer[]::new);
+
+        requestsRepository.setStatusByIds(userIds, RequestStatus.CREDITED.toString(), facultyId);
     }
 
     private double round(Double value, int n){

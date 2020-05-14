@@ -30,4 +30,9 @@ public class StatementRestController {
     private void cancelStatement(@RequestParam("id") Request request){
         statementService.saveCanceledRequest(request);
     }
+
+    @PostMapping("/result")
+    public void statementResult(@RequestParam("facultyId") Faculty faculty){
+        statementService.statementResult(faculty.getId(), faculty.getNumberOfSeats());
+    }
 }

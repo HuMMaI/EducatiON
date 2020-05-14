@@ -25,6 +25,8 @@ public class Statement {
 
     private double grade;
 
+    private boolean isCredited;
+
     public Statement() {
     }
 
@@ -82,5 +84,13 @@ public class Statement {
 
     public void setGrade(double grade) {
         this.grade = grade;
+    }
+
+    public boolean isCredited() {
+        return isCredited;
+    }
+
+    public void setCredited(boolean credited) {
+        isCredited = credited;
     }
 }
