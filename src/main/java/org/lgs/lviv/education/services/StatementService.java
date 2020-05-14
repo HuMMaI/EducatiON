@@ -1,5 +1,6 @@
 package org.lgs.lviv.education.services;
 
+import org.lgs.lviv.education.entities.Faculty;
 import org.lgs.lviv.education.entities.Request;
 import org.lgs.lviv.education.entities.RequestStatus;
 import org.lgs.lviv.education.entities.Statement;
@@ -9,6 +10,8 @@ import org.lgs.lviv.education.repositories.StatementRepository;
 import org.lgs.lviv.education.repositories.SubjectsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class StatementService {
@@ -32,7 +35,7 @@ public class StatementService {
         statement.setFaculty(request.getFaculty());
 
         double averageSubjectGrade = round(subjectsRepository.averageGradeByUserId(request.getUser().getId()), 2);
-        Double averageCertificateGrade = round(certificatesRepository.averageGradeByUserId(request.getUser().getId()), 2);
+        double averageCertificateGrade = round(certificatesRepository.averageGradeByUserId(request.getUser().getId()), 2);
         double grade = round(averageSubjectGrade + averageCertificateGrade, 2);
 
         statement.setAverageGradeOfSubjects(averageSubjectGrade);
@@ -42,6 +45,10 @@ public class StatementService {
         requestsRepository.setStatusById(request.getId(), RequestStatus.ACCEPTED.toString());
 
         statementRepository.save(statement);
+    }
+
+    public List<Statement> getRatingList(int facultyId){
+        return statementRepository.findAllByFacultyIdAndOrderByGradeDesc(facultyId);
     }
 
     private double round(Double value, int n){

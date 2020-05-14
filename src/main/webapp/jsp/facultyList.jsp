@@ -81,7 +81,8 @@
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <div class="d-flex justify-content-center">
                                 <security:authorize access="hasAuthority('ENROLLEE')">
-                                    <button class="btn mosh-btn mt-50 apply-btn" id="${faculty.id}" type="submit">Apply</button>
+                                    <a class="btn mosh-btn mt-50" href="/statement/rating-list?id=${faculty.id}">Show rating list</a>
+                                    <button class="btn mosh-btn mt-50 apply-btn ml-4" id="${faculty.id}" type="submit">Apply</button>
                                 </security:authorize>
                                 <security:authorize access="hasAuthority('ADMIN')">
                                     <a class="btn mosh-btn mt-50 ml-4" href="/faculty/edit?id=${faculty.id}">Edit</a>

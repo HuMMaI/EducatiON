@@ -159,5 +159,4 @@ public class FacultyRestController {
 
         return new ResponseEntity(HttpStatus.OK);
     }
-
 }

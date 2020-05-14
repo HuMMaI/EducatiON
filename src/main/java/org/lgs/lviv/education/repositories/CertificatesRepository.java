@@ -13,5 +13,5 @@ public interface CertificatesRepository extends JpaRepository<Certificate, Integ
     List<Certificate> findByUserId(int userId);
 
     @Query("SELECT AVG(c.grade) FROM Certificate c WHERE c.user.id = :id")
-    Double averageGradeByUserId(@Param("id") int id);
+    double averageGradeByUserId(@Param("id") int id);
 }

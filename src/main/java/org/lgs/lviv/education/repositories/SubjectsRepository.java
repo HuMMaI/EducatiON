@@ -16,5 +16,5 @@ public interface SubjectsRepository extends JpaRepository<Subject, Integer> {
     List<String> findAllSubjectNamesByUserId(@Param("id") int id);
 
     @Query("SELECT AVG(s.grade) FROM Subject s WHERE s.user.id = :id")
-    Double averageGradeByUserId(@Param("id") int id);
+    double averageGradeByUserId(@Param("id") int id);
 }
