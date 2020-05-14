@@ -5,7 +5,6 @@ import org.lgs.lviv.education.entities.Request;
 import org.lgs.lviv.education.entities.Statement;
 import org.lgs.lviv.education.services.StatementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +32,6 @@ public class StatementRestController {
 
     @PostMapping("/result")
     public void statementResult(@RequestParam("facultyId") Faculty faculty){
-        statementService.statementResult(faculty.getId(), faculty.getNumberOfSeats());
+        statementService.statementResult(faculty.getId(), faculty.getNumberOfSeats(), faculty.getName());
     }
 }

@@ -3,14 +3,17 @@ package org.lgs.lviv.education.services;
 import org.lgs.lviv.education.entities.Request;
 import org.lgs.lviv.education.entities.RequestStatus;
 import org.lgs.lviv.education.entities.Statement;
+import org.lgs.lviv.education.entities.User;
 import org.lgs.lviv.education.repositories.CertificatesRepository;
 import org.lgs.lviv.education.repositories.RequestsRepository;
 import org.lgs.lviv.education.repositories.StatementRepository;
 import org.lgs.lviv.education.repositories.SubjectsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StatementService {
@@ -18,13 +21,18 @@ public class StatementService {
     private final SubjectsRepository subjectsRepository;
     private final CertificatesRepository certificatesRepository;
     private final RequestsRepository requestsRepository;
+    private final MailSenderService mailSenderService;
+
+    @Value("${appBaseDomain}")
+    private String appBaseDomain;
 
     @Autowired
-    public StatementService(StatementRepository statementRepository, SubjectsRepository subjectsRepository, CertificatesRepository certificatesRepository, RequestsRepository requestsRepository) {
+    public StatementService(StatementRepository statementRepository, SubjectsRepository subjectsRepository, CertificatesRepository certificatesRepository, RequestsRepository requestsRepository, MailSenderService mailSenderService) {
         this.statementRepository = statementRepository;
         this.subjectsRepository = subjectsRepository;
         this.certificatesRepository = certificatesRepository;
         this.requestsRepository = requestsRepository;
+        this.mailSenderService = mailSenderService;
     }
 
     public void save(Request request){
@@ -57,7 +65,7 @@ public class StatementService {
         requestsRepository.save(request);
     }
 
-    public void statementResult(int facultyId, int limit){
+    public void statementResult(int facultyId, int limit, String facultyName){
         List<Statement> statementList = statementRepository.findAllByFacultyIdAndOrderByGradeDescLimit(facultyId, limit);
 
         Integer[] ids = statementList.stream()
@@ -71,6 +79,20 @@ public class StatementService {
                 .toArray(Integer[]::new);
 
         requestsRepository.setStatusByIds(userIds, RequestStatus.CREDITED.toString(), facultyId);
+
+        List<User> users = statementList.stream()
+                .map(Statement::getUser)
+                .collect(Collectors.toList());
+
+        for (User user : users) {
+            String message = String.format(
+                    "Hi, %s\n" +
+                            "The results of admission to %s faculty became known.\n" +
+                            "Go to find out %s/cabinet.",
+                    user.getFirstName(), facultyName, appBaseDomain
+            );
+            mailSenderService.send(user.getEmail(), "Request result", message);
+        }
     }
 
     private double round(Double value, int n){

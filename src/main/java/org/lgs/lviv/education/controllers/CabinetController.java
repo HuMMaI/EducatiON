@@ -33,19 +33,8 @@ public class CabinetController {
         User user = userService.findById(userId);
         List<Request> requests = requestService.findByUserId(userId);
 
-//        List<Integer> requestIds = requests.stream()
-//                .map(Request::getId)
-//                .collect(Collectors.toList());
-//
-//        List<String> facultyNames = requests.stream()
-//                .map(Request::getFaculty)
-//                .map(Faculty::getName)
-//                .collect(Collectors.toList());
-
         model.addAttribute("user", user);
         model.addAttribute("requests", requests);
-//        model.addAttribute("requestIds", requestIds);
-//        model.addAttribute("facultyNames", facultyNames);
 
         return "cabinet";
     }
