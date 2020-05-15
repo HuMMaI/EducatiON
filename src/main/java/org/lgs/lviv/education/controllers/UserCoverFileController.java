@@ -11,23 +11,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
+@RequestMapping("/user-cover-files")
 public class UserCoverFileController {
     @Autowired
     private UserCoverFileService userCoverFileService;
 
-    @PostMapping("/user-cover-files/upload")
+    @PostMapping("/upload")
     public String uploadFile(@RequestParam("coverFile") MultipartFile file){
         UserCoverFile userCoverFile = userCoverFileService.save(file);
         return userCoverFile.getId();
     }
 
-    @GetMapping("/user-cover-files/download/{fileId}")
+    @GetMapping("/download/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId){
         UserCoverFile userCoverFile = userCoverFileService.findById(fileId);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(userCoverFile.getFileType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + userCoverFile.getFileName())
                 .body(new ByteArrayResource(userCoverFile.getData()));
+    }
+
+    @GetMapping("/user-cover-id")
+    public String getCoverId(HttpServletRequest req){
+        int userId = (int) req.getSession().getAttribute("userId");
+
+        return userCoverFileService.findCoverIdByUserId(userId);
     }
 }

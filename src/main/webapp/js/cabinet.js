@@ -50,3 +50,17 @@ $.get("/cabinet/api/user-info")
                 $("#user-requests").html(requestCards);
             })
     });
+
+$.get("/user-cover-files/user-cover-id")
+    .done(function (coverId) {
+        var imgSrc;
+
+        if (coverId === "") {
+            var contextPath = $('#contextPathHolder').attr('data-contextPath');;
+            imgSrc = contextPath + "/img/core-img/user_default.png";
+        } else {
+            imgSrc = "/user-cover-files/download/" + coverId;
+        }
+
+        $("#profile-img").attr("src", imgSrc);
+    });

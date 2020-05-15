@@ -77,8 +77,17 @@ $(document).on("click", ".user-all", function () {
 
     $.get("/user/api/find?id=" + idArray[1])
         .done(function (user) {
+            var imgSrc;
+
+            if (user.coverId === null) {
+                var contextPath = $('#contextPathHolder').attr('data-contextPath');;
+                imgSrc = contextPath + "/img/core-img/user_default.png";
+            } else {
+                imgSrc = "/user-cover-files/download/" + user.coverId;
+            }
+
             var userInfo = "<div class=\"col-md-4\">\n" +
-                "<img src=\"/user-cover-files/download/" + user.coverId + "\" alt=\"user photo\">\n" +
+                "<img src=\"" + imgSrc + "\" alt=\"user photo\">\n" +
                 "</div>\n" +
                 "<div class=\"col-md-7\">\n" +
                 "<p>\n" +

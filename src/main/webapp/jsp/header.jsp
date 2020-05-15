@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
 
+    <link id="contextPathHolder" data-contextPath="${pageContext.request.contextPath}"/>
+
     <title>Hello, world!</title>
 </head>
 <body>
@@ -57,7 +59,8 @@
                             </security:authorize>
                             <security:authorize access="isAuthenticated()">
                                 <div class="dropdown" id="user-img-container">
-                                    <img class="btn dropdown-toggle" src="${pageContext.request.contextPath}/img/core-img/user_default.png" alt="dropdown image" data-toggle="dropdown" id="user-img" aria-expanded="false">
+                                    <img class="btn dropdown-toggle" src="" alt="dropdown image" data-toggle="dropdown" id="user-img" aria-expanded="false">
+                                    <input type="hidden" id="user-img-src" value="">
                                     <input type="hidden" value="0" id="click-listener">
                                     <ul class="dropdown-menu dropdown-menu-right" id="user-panel">
                                         <li><a class="dropdown-item" href="/cabinet">Cabinet</a></li>
@@ -86,6 +89,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<%--<script src="${pageContext.request.contextPath}/js/header.js"></script>--%>
+<script src="${pageContext.request.contextPath}/js/header.js"></script>
 </body>
 </html>

@@ -16,7 +16,7 @@ $("#cover-file").change(function (){
         success: function (coverId) {
             $("#user-cover")
                 .attr("src", "/user-cover-files/download/" + coverId);
-            $("#cover-id").val(coverId)
+            $("#cover-id").val(coverId);
         },
     });
 });

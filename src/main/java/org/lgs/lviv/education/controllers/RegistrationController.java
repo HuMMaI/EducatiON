@@ -4,7 +4,6 @@ import org.lgs.lviv.education.dtos.UserRegistrationDto;
 import org.lgs.lviv.education.entities.User;
 import org.lgs.lviv.education.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,9 +21,6 @@ import java.util.stream.Collectors;
 public class RegistrationController {
     @Autowired
     private UserService userService;
-
-    @Value("${appBaseDomain}")
-    private String appBaseDomain;
 
     @GetMapping("/registration")
     public String registration() {

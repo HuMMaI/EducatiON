@@ -47,7 +47,7 @@
                         <div class="col-12">
                             <div class="single-blog wow fadeInUp" data-wow-delay="0.2s">
                                 <div class="blog-post-thumb d-flex justify-content-center">
-                                    <img src="/user-cover-files/download/${user.coverId}" alt="">
+                                    <img src="" id="profile-img" alt="">
                                 </div>
                                 <h2>Short information about you</h2>
                                 <p><i>Empty.</i></p>
