@@ -206,7 +206,7 @@ $("#certificate-grade").keypress(function () {
 $(document).on("click", ".delete-btn", function (event) {
     event.preventDefault();
 
-    var idStr = $(".delete-btn").attr("id");
+    var idStr = $(this).attr("id");
     var idArray = idStr.split(/\s+/);
     $(".delete-btn").prop("disabled", true);
 
