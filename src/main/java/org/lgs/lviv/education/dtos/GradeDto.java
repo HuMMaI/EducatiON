@@ -1,5 +1,7 @@
 package org.lgs.lviv.education.dtos;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -7,6 +9,8 @@ public class GradeDto {
     @NotBlank(message = "Subject name can`t be empty!")
     private String name;
 
+    @Min(value = 0, message = "Grade can`t be less than 0!")
+    @Max(value = 100, message = "Grade can`t be more than 100!")
     @NotNull(message = "Subject grade can`t be empty!")
     private Integer grade;
 

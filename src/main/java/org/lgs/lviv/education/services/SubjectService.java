@@ -42,4 +42,11 @@ public class SubjectService {
 
         return subjects.contains(subjectName);
     }
+
+    public boolean numberOfSubjectsCheck(int userId) {
+        long numberOfSubjects = subjectsRepository.findAllSubjectNamesByUserId(userId).stream()
+                .count();
+
+        return numberOfSubjects < 4;
+    }
 }

@@ -87,6 +87,16 @@ public class GradesRestController {
             return new ResponseEntity(errorMap, HttpStatus.BAD_REQUEST);
         }
 
+        boolean isSubjectsMoreThanFour = subjectService.numberOfSubjectsCheck(userId);
+
+        if (!isSubjectsMoreThanFour){
+            Map<String, String> errorMap = new HashMap<>();
+
+            errorMap.put("existError", "Can`t add more than 4 subjects!");
+
+            return new ResponseEntity(errorMap, HttpStatus.BAD_REQUEST);
+        }
+
         User user = userService.findById(userId);
 
         if (gradeDto.getGradeType().equals("subject")){

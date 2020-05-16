@@ -4,7 +4,9 @@ public enum FacultySubjects {
     MATHEMATICS("Mathematics"),
     PHYSICS("Physics"),
     HISTORY("History"),
-    FOREIGN_LANGUAGE("Foreign language");
+    FOREIGN_LANGUAGE("Foreign language"),
+    GEOGRAPHY("Geography"),
+    BIOLOGY("Biology");
 
     String subjectName;
 
