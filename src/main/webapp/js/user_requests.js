@@ -1,8 +1,61 @@
+function getSubjects(userId){
+    return $.parseJSON($.ajax({
+        url: "/grades/api/subjects-list?userId=" + userId,
+        method: "GET",
+        dataType: "json",
+        async: false
+    }).responseText);
+}
+
+function getSubjectNames(userId) {
+    var subjects = getSubjects(userId);
+
+    var subjectNames = "<b>Subjects: </b>";
+
+    jQuery.each(subjects, function (i, item) {
+        subjectNames += item.name;
+
+        if(i !== subjects.length - 1){
+            subjectNames += ", ";
+        }
+    });
+
+    return subjectNames;
+}
+
+function getCertificate(userId){
+    return $.parseJSON($.ajax({
+        url: "/grades/api/certificate-list?userId=" + userId,
+        method: "GET",
+        dataType: "json",
+        async: false
+    }).responseText);
+}
+
+function getCertificateNames(userId) {
+    var certificate = getCertificate(userId);
+
+    var certificateNames = "<b>Certificate: </b>";
+
+    jQuery.each(certificate, function (i, item) {
+        certificateNames += item.name;
+
+        if(i !== certificate.length - 1){
+            certificateNames += ", ";
+        }
+    });
+
+    return certificateNames;
+}
+
 $.get("/requests/api/")
     .done(function (userRequests) {
         var requestCards = "";
 
         jQuery.each(userRequests, function (key, item) {
+            var subjects = getSubjectNames(item.user.id);
+            var certificate = getCertificateNames(item.user.id);
+
             requestCards += "<div class=\"card w-100 mb-3\">\n" +
                 "<h5 class=\"card-header\">Request No." + item.id + "</h5>\n" +
                 "<div class=\"row no-gutters\">\n" +
@@ -20,6 +73,8 @@ $.get("/requests/api/")
                 "<div class=\"card-body\">\n" +
                 "<p class=\"card-text\" id=\"user-" + item.user.id + "\">\n" +
                 "<b>Faculty:</b> " + item.faculty.name + "<br>\n" +
+                subjects + "<br>" +
+                certificate + "<br>" +
                 "</p>\n" +
                 "<small class=\"info-text subject-all\" id=\"user-subject " + item.user.id + "\">Show all info</small>\n" +
                 "</div>\n" +
@@ -37,35 +92,8 @@ $.get("/requests/api/")
                 "</div>";
 
             $("#user-requests").append(requestCards);
-
-            $.get("/grades/api/subjects-list?userId=" + item.user.id)
-                .done(function (data) {
-                    var subjects = "<b>Subjects: </b>"
-                    jQuery.each(data, function (i, item) {
-                        subjects += item.name;
-
-                        if(i !== data.length - 1){
-                            subjects += ", "
-                        }
-                    });
-                    subjects += "<br>"
-
-                    $("#user-" + item.user.id).append(subjects);
-                });
-
-            $.get("/grades/api/certificate-list?userId=" + item.user.id)
-                .done(function (data) {
-                    var certificate = "<b>Certificate: </b>"
-                    jQuery.each(data, function (i, item) {
-                        certificate += item.name;
-
-                        if(i !== data.length - 1){
-                            certificate += ", "
-                        }
-                    });
-
-                    $("#user-" + item.user.id).append(certificate);
-                });
+            
+            requestCards = "";
         });
     });
 
@@ -112,38 +140,31 @@ $(document).on("click", ".subject-all", function () {
 
     $("#req-info-" + idArray[1]).html("");
 
-    $.get("/grades/api/subjects-list?userId=" + idArray[1])
-        .done(function (subjects) {
-            var subjectsInfo = "<div class=\"col-md-6\">\n" +
-                "<p><b>Subjects:</b><br>\n";
+    var subjects = getSubjects(idArray[1]);
+    var certificate = getCertificate(idArray[1]);
 
-            jQuery.each(subjects, function (i, item) {
-                subjectsInfo += "<span class=\"d-flex flex-row\">" + "<span> &nbsp;" + item.name + "</span>" + "<span class=\"ml-auto\">" + item.grade + "</span>";
-            });
+    var subjectsInfo = "<div class=\"col-md-6\">\n" +
+        "<p><b>Subjects:</b><br>\n";
 
-            subjectsInfo += "\n</p>\n</div>\n";
+    jQuery.each(subjects, function (i, item) {
+        subjectsInfo += "<span class=\"d-flex flex-row\">" + "<span> &nbsp;" + item.name + "</span>" + "<span class=\"ml-auto\">" + item.grade + "</span></span>";
+    });
 
-            $("#req-info-" + idArray[1]).append(subjectsInfo);
-        });
+    subjectsInfo += "\n</p>\n</div>\n" +
+        "<div class=\"col-md-5\">\n" +
+        "<p><b>Certificate:</b><br>\n";
 
-    $.get("/grades/api/certificate-list?userId=" + idArray[1])
-        .done(function (certificate) {
-            var certificateInfo = "<div class=\"col-md-5\">\n" +
-                "<p><b>Certificate:</b><br>\n";
+    jQuery.each(certificate, function (i, item) {
+        subjectsInfo += "<span class=\"d-flex flex-row\">" + "<span> &nbsp;" + item.name + "</span>" + "<span class=\"ml-auto\">" + item.grade + "</span></span>";
+    });
 
-            jQuery.each(certificate, function (i, item) {
-                certificateInfo += "<span class=\"d-flex flex-row\">" + "<span> &nbsp;" + item.name + "</span>" + "<span class=\"ml-auto\">" + item.grade + "</span>" + "</span>";
-            });
+    var closeInfo = "<div class=\"col-md-1 text-right\">\n" +
+        "<span class=\"alert-link ml-auto info-close\"><i class=\"fas fa-times\"></i></span>\n" +
+        "</div>";
 
-            var closeInfo = "<div class=\"col-md-1 text-right\">\n" +
-                "<span class=\"alert-link ml-auto info-close\"><i class=\"fas fa-times\"></i></span>\n" +
-                "</div>";
+    subjectsInfo += "\n</p>\n</div>\n" + closeInfo;
 
-            certificateInfo += "\n</p>\n</div>\n" + closeInfo;
-
-            $("#req-info-" + idArray[1]).append(certificateInfo);
-        });
-
+    $("#req-info-" + idArray[1]).html(subjectsInfo);
     $("#req-info-" + idArray[1]).removeClass("error-hidden");
 });
 
