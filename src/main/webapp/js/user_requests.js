@@ -82,7 +82,7 @@ $.get("/requests/api/")
                 "<div class=\"col-md-2 d-flex flex-column justify-content-around\">\n" +
                 "<form action=\"\">\n" +
                 "<input type=\"hidden\" name=\"${_csrf.parameterName}\" value=\"${_csrf.token}\"/>\n" +
-                "<button class=\"btn mosh-btn accept-btn\" id=\"accept-btn " + item.id + "\" type=\"submit\">Accept</button>\n" +
+                "<button class=\"btn mosh-btn accept-btn w-100\" id=\"accept-btn " + item.id + "\" type=\"submit\">Accept</button>\n" +
                 "</form>\n" +
                 "<button class=\"btn mosh-btn cancel-btn\" request-id=\"" + item.id + "\" id=\"cancel-btn " + item.user.id + "\" type=\"submit\">Cancel</button>\n" +
                 "</div>\n" +
