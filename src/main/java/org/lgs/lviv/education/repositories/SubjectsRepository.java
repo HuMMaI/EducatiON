@@ -17,4 +17,6 @@ public interface SubjectsRepository extends JpaRepository<Subject, Integer> {
 
     @Query("SELECT AVG(s.grade) FROM Subject s WHERE s.user.id = :id")
     double averageGradeByUserId(@Param("id") int id);
+
+    void deleteById(int id);
 }

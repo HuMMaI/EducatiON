@@ -45,7 +45,7 @@
             <div class="col-12">
                 <div class="contact-form-area">
                     <h2>Subjects</h2>
-                    <div class="alert alert-danger error-hidden d-flex flex-row" id="existError" role="alert">
+                    <div class="alert alert-danger error-hidden d-flex flex-row" id="subjectExistError" role="alert">
                         <span id="message"></span>
                         <span class="alert-link ml-auto" id="subject-alert-close"><i class="fas fa-times"></i></span>
                     </div>
@@ -89,13 +89,15 @@
                 <div class="contact-form-area">
                     <h2>Certificate</h2>
                     <div class="alert alert-danger error-hidden d-flex flex-row" id="certificateExistError" role="alert">
-                        <span id="errorMessage"></span>
+                        <span id="certificateErrorMessage"></span>
                         <span class="alert-link ml-auto" id="certificate-alert-close"><i class="fas fa-times"></i></span>
                     </div>
                     <form action="">
                         <div class="row">
                             <div class="col-12 col-md-5">
-                                <input type="text" class="form-control field-create" placeholder="Certificate subject name" name="name" id="certificate-name">
+                                <select class="form-control field-create" id="certificate-name" required>
+                                    <option value="" disabled selected hidden>Select subject</option>
+                                </select>
                                 <div class="invalid-feedback error-hidden" id="certificate-name-error">
 
                                 </div>

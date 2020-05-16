@@ -7,6 +7,7 @@ $.get("/grades/api/subjects")
         });
 
         $("#subject-name").append(subjectList);
+        $("#certificate-name").append(subjectList);
     });
 
 $.get("/grades/api/current-user-subjects")
@@ -52,7 +53,7 @@ $.get("/grades/api/current-user-certificate")
                 "<div class=\"col-md-4 d-flex flex-column justify-content-around\">\n" +
                 "<input type=\"hidden\" value=\"" + item.id + "\" name=\"certificateId\">\n" +
                 "<button class=\"btn mosh-btn\" type=\"submit\">Edit</button>\n" +
-                "<button class=\"btn mosh-btn\" type=\"submit\">Delete</button>\n" +
+                "<button class=\"btn mosh-btn delete-btn\" id=\"" + item.id + " certificate\" type=\"submit\">Delete</button>\n" +
                 "</div>\n" +
                 "</div>\n" +
                 "</div>"
@@ -107,8 +108,8 @@ $("#add-btn").click(function (event) {
                         $("#grade-error").html(item);
                         break;
 
-                    case "existError":
-                        $("#existError").removeClass("error-hidden");
+                    case "subjectExistError":
+                        $("#subjectExistError").removeClass("error-hidden");
                         $("#message").html(item);
                         break;
                 }
@@ -182,6 +183,11 @@ $("#certificate-add-btn").click(function (event) {
                         $("#certificate-grade-error").removeClass("error-hidden");
                         $("#certificate-grade-error").html(item);
                         break;
+
+                    case "certificateExistError":
+                        $("#certificateExistError").removeClass("error-hidden");
+                        $("#certificateErrorMessage").html(item);
+                        break;
                 }
             });
 
@@ -189,7 +195,7 @@ $("#certificate-add-btn").click(function (event) {
         });
 });
 
-$("#certificate-name").keypress(function () {
+$("#certificate-name").change(function () {
     $("#certificate-name").removeClass("is-invalid");
     $("#certificate-name").removeClass("error-color");
     $("#certificate-name-error").addClass("error-hidden");
@@ -203,6 +209,11 @@ $("#certificate-grade").keypress(function () {
     $("#certificate-grade-error").html();
 });
 
+$("#certificate-alert-close").click(function () {
+    $("#certificateExistError").addClass("error-hidden");
+    $("#message").html();
+});
+
 $(document).on("click", ".delete-btn", function (event) {
     event.preventDefault();
 
@@ -210,10 +221,16 @@ $(document).on("click", ".delete-btn", function (event) {
     var idArray = idStr.split(/\s+/);
     $(".delete-btn").prop("disabled", true);
 
+    var subjectDto = {
+        id: idArray[0],
+        gradeType: idArray[1]
+    };
+
     $.ajax({
-        url: "/grades/api/subject-delete/" + idArray[0],
+        url: "/grades/api/subject-delete",
         headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
         type: "DELETE",
+        data: subjectDto,
         success: function () {
             location.reload();
         }

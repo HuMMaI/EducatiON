@@ -29,8 +29,8 @@ public class SubjectService {
         return subjectsRepository.findByUserId(userId);
     }
 
-    public void delete(Subject subject) {
-        subjectsRepository.delete(subject);
+    public void deleteById(int id) {
+        subjectsRepository.deleteById(id);
     }
 
     public boolean subjectCheck(String subjectName, int userId) {

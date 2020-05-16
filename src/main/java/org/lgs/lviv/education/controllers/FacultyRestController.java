@@ -41,8 +41,8 @@ public class FacultyRestController {
 
             return new ResponseEntity(errorsMap, HttpStatus.BAD_REQUEST);
         } else {
-                Set<String> subjects = Arrays.stream(FacultySubjects.values())
-                        .map(FacultySubjects::name)
+                Set<String> subjects = Arrays.stream(SubjectNames.values())
+                        .map(SubjectNames::name)
                         .collect(Collectors.toSet());
 
             Faculty faculty = new Faculty();
@@ -55,7 +55,7 @@ public class FacultyRestController {
 
             for (String key : facultyDto.getSubjects()) {
                 if (subjects.contains(key)){
-                    faculty.getSubjects().add(FacultySubjects.valueOf(key));
+                    faculty.getSubjects().add(SubjectNames.valueOf(key));
                 }
             }
             facultyService.create(faculty);
@@ -75,9 +75,9 @@ public class FacultyRestController {
     @GetMapping("/add")
     @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public Map<FacultySubjects, String> getAddFacultyPage(){
-        return Stream.of(FacultySubjects.values())
-                .collect(Collectors.toMap(s -> s, FacultySubjects::toString));
+    public Map<SubjectNames, String> getAddFacultyPage(){
+        return Stream.of(SubjectNames.values())
+                .collect(Collectors.toMap(s -> s, SubjectNames::toString));
     }
 
     @GetMapping("/edit")
@@ -104,13 +104,13 @@ public class FacultyRestController {
 
             faculty.getSubjects().clear();
 
-            Set<String> subjects = Arrays.stream(FacultySubjects.values())
-                    .map(FacultySubjects::name)
+            Set<String> subjects = Arrays.stream(SubjectNames.values())
+                    .map(SubjectNames::name)
                     .collect(Collectors.toSet());
 
             for (String key : facultyDto.getSubjects()) {
                 if (subjects.contains(key)) {
-                    faculty.getSubjects().add(FacultySubjects.valueOf(key));
+                    faculty.getSubjects().add(SubjectNames.valueOf(key));
                 }
             }
 
@@ -132,7 +132,7 @@ public class FacultyRestController {
                 .map(Subject::getName)
                 .collect(Collectors.toSet());
         Set<String> subjects = faculty.getSubjects().stream()
-                .map(FacultySubjects::toString)
+                .map(SubjectNames::toString)
                 .collect(Collectors.toSet());
 
         if (userSubjects.isEmpty() || userSubjects.size() < subjects.size()){

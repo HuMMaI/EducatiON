@@ -28,4 +28,25 @@ public class CertificateService {
     public List<Certificate> findByUserId(int userId) {
         return certificatesRepository.findByUserId(userId);
     }
+
+    public boolean subjectCheck(String subjectName, int userId) {
+        List<String> certificateSubjects = certificatesRepository.findAllCertificateNamesByUserId(userId);
+
+        if (certificateSubjects.isEmpty()){
+            return false;
+        }
+
+        return certificateSubjects.contains(subjectName);
+    }
+
+    public boolean numberOfSubjectsCheck(int userId) {
+        long numberOfSubjects = certificatesRepository.findAllCertificateNamesByUserId(userId).stream()
+                .count();
+
+        return numberOfSubjects < 6;
+    }
+
+    public void deleteById(int id){
+        certificatesRepository.deleteById(id);
+    }
 }

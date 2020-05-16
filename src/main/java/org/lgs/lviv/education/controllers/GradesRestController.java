@@ -1,8 +1,9 @@
 package org.lgs.lviv.education.controllers;
 
+import org.lgs.lviv.education.dtos.GradeDeleteDto;
 import org.lgs.lviv.education.dtos.GradeDto;
 import org.lgs.lviv.education.entities.Certificate;
-import org.lgs.lviv.education.entities.FacultySubjects;
+import org.lgs.lviv.education.entities.SubjectNames;
 import org.lgs.lviv.education.entities.Subject;
 import org.lgs.lviv.education.entities.User;
 import org.lgs.lviv.education.services.CertificateService;
@@ -59,9 +60,9 @@ public class GradesRestController {
     }
 
     @GetMapping("/subjects")
-    public Map<FacultySubjects, String> getSubjectMap(){
-        return Stream.of(FacultySubjects.values())
-                .collect(Collectors.toMap(s -> s, FacultySubjects::toString));
+    public Map<SubjectNames, String> getSubjectMap(){
+        return Stream.of(SubjectNames.values())
+                .collect(Collectors.toMap(s -> s, SubjectNames::toString));
     }
 
     @PostMapping("/add")
@@ -78,21 +79,36 @@ public class GradesRestController {
 
         int userId = (int) request.getSession().getAttribute("userId");
 
-        boolean isSubjectExist = subjectService.subjectCheck(gradeDto.getName(), userId);
+        boolean isSubjectExist;
+
+        if (gradeDto.getGradeType().equals("subject")){
+            isSubjectExist = subjectService.subjectCheck(gradeDto.getName(), userId);
+        } else {
+            isSubjectExist = certificateService.subjectCheck(gradeDto.getName(), userId);
+        }
 
         if (isSubjectExist){
             Map<String, String> errorMap = new HashMap<>();
-            errorMap.put("existError", "You can`t added this subject because it has already been added!");
+            errorMap.put(gradeDto.getGradeType() + "ExistError", "You can`t added this subject because it has already been added!");
 
             return new ResponseEntity(errorMap, HttpStatus.BAD_REQUEST);
         }
 
-        boolean isSubjectsMoreThanFour = subjectService.numberOfSubjectsCheck(userId);
+        boolean isSubjectsMoreThan;
 
-        if (!isSubjectsMoreThanFour){
+        if (gradeDto.getGradeType().equals("subject")){
+            isSubjectsMoreThan = subjectService.numberOfSubjectsCheck(userId);
+        } else {
+            isSubjectsMoreThan = certificateService.numberOfSubjectsCheck(userId);
+        }
+
+        if (!isSubjectsMoreThan){
             Map<String, String> errorMap = new HashMap<>();
 
-            errorMap.put("existError", "Can`t add more than 4 subjects!");
+            int numberOfSubjects = gradeDto.getGradeType().equals("subject") ? 4 : 6;
+
+            String message = String.format("Can`t add more than %d subjects!", numberOfSubjects);
+            errorMap.put(gradeDto.getGradeType() + "ExistError", message);
 
             return new ResponseEntity(errorMap, HttpStatus.BAD_REQUEST);
         }
@@ -120,8 +136,12 @@ public class GradesRestController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping("/subject-delete/{subject}")
-    public void deleteSubject(@PathVariable Subject subject){
-        subjectService.delete(subject);
+    @DeleteMapping("/subject-delete")
+    public void deleteSubject(@ModelAttribute GradeDeleteDto gradeDeleteDto){
+        if (gradeDeleteDto.getGradeType().equals("subject")){
+            subjectService.deleteById(gradeDeleteDto.getId());
+        } else {
+            certificateService.deleteById(gradeDeleteDto.getId());
+        }
     }
 }

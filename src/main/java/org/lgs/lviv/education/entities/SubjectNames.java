@@ -1,6 +1,6 @@
 package org.lgs.lviv.education.entities;
 
-public enum FacultySubjects {
+public enum SubjectNames {
     MATHEMATICS("Mathematics"),
     PHYSICS("Physics"),
     HISTORY("History"),
@@ -10,7 +10,7 @@ public enum FacultySubjects {
 
     String subjectName;
 
-    FacultySubjects(String name){
+    SubjectNames(String name){
         this.subjectName = name;
     }
 
