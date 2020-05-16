@@ -12,8 +12,8 @@ import java.util.List;
 
 @Repository
 public interface StatementRepository extends JpaRepository<Statement, Integer> {
-    @Query("SELECT s FROM Statement s WHERE s.faculty.id = :faculty AND s.isCredited = false ORDER BY s.grade DESC")
-    List<Statement> findAllByFacultyIdAndIsCreditedAndOrderByGradeDesc(@Param("faculty") int faculty);
+    @Query("SELECT s FROM Statement s WHERE s.faculty.id = :facultyId AND s.isCredited = false ORDER BY s.grade DESC")
+    List<Statement> findAllByFacultyIdAndIsCreditedAndOrderByGradeDesc(@Param("facultyId") int facultyId);
 
     @Query(value = "SELECT * FROM statements WHERE faculty_id = :facultyId AND is_credited = false ORDER BY grade DESC LIMIT :limit", nativeQuery = true)
     List<Statement> findAllByFacultyIdAndOrderByGradeDescLimit(@Param("facultyId") int facultyId, @Param("limit") int limit);

@@ -74,11 +74,17 @@ public class StatementService {
 
         statementRepository.setCreditedValue(ids);
 
-        Integer[] userIds = statementList.stream()
+        Integer[] creditedUserIds = statementList.stream()
                 .map(s -> s.getUser().getId())
                 .toArray(Integer[]::new);
 
-        requestsRepository.setStatusByIds(userIds, RequestStatus.CREDITED.toString(), facultyId);
+        requestsRepository.setStatusByIds(creditedUserIds, RequestStatus.CREDITED.toString(), facultyId);
+
+        Integer[] userIds = statementRepository.findAllByFacultyIdAndIsCreditedAndOrderByGradeDesc(facultyId).stream()
+                .map(s -> s.getUser().getId())
+                .toArray(Integer[]::new);
+
+        requestsRepository.setStatusByIds(userIds, RequestStatus.NOT_CREDITED.toString(), facultyId);
 
         List<User> users = statementList.stream()
                 .map(Statement::getUser)
