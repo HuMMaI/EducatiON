@@ -45,9 +45,9 @@
         <div class="d-flex flex-row">
             <h2>Users</h2>
             <div class="blog-post-search-widget ml-auto">
-                <form action="#">
-                    <input type="search" name="search" id="Search">
-                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                <form action="">
+                    <input type="search" name="search" id="search-value">
+                    <button type="submit" id="search-user"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
             </div>
         </div>

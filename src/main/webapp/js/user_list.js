@@ -1,52 +1,56 @@
 $.get("/user/api")
     .done(function (users) {
-        var userList = "";
+        getUserCards(users);
+    });
 
-        jQuery.each(users, function (i, item) {
-            var roles = "";
-            jQuery.each(item.roles, function (j, role) {
-                roles += role;
-                if (j !== item.roles.length - 1){
-                    roles += ", ";
-                }
-            });
+function getUserCards(users){
+    var userList = "";
 
-            var imgSrc;
-
-            if (item.coverId === null) {
-                var contextPath = $('#contextPathHolder').attr('data-contextPath');;
-                imgSrc = contextPath + "/img/core-img/user_default.png";
-            } else {
-                imgSrc = "/user-cover-files/download/" + item.coverId;
+    jQuery.each(users, function (i, item) {
+        var roles = "";
+        jQuery.each(item.roles, function (j, role) {
+            roles += role;
+            if (j !== item.roles.length - 1){
+                roles += ", ";
             }
-
-            userList += "<div class=\"card mb-3 w-50 mr-auto ml-auto\" style=\"max-width: 540px;\" id=\"full-info-" + item.id + "\">\n" +
-                "<div class=\"row no-gutters\">\n" +
-                "<div class=\"col-md-4 d-flex flex-column justify-content-center\">\n" +
-                "<img src=\"" + imgSrc + "\" class=\"card-img\" alt=\"user photo\">\n" +
-                "</div>\n" +
-                "<div class=\"col-md-8\" id=\"first-block-" + item.id + "\">\n" +
-                "<div class=\"card-body\">\n" +
-                "<h5 class=\"card-title\">User No." + item.id + "</h5>\n" +
-                "<p class=\"card-text\">\n" +
-                "<b>First name:</b> " + item.firstName + "<br>\n" +
-                "<b>Last name:</b> " + item.lastName + "<br>\n" +
-                "<b>Email:</b> " + item.email + "<br>\n" +
-                "<b>Roles:</b>\n" + roles +
-                "</p>\n" +
-                "<div class=\"d-flex flex-row\" id=\"buttons-" + item.id + "\">\n" +
-                "<button class=\"btn mosh-btn full-info\" id=\"" + item.id + "\">Full info</button>\n" +
-                "<a class=\"btn mosh-btn ml-4\" href=\"/user/edit?id=" + item.id + "\">Edit</a>\n" +
-                "</div>\n" +
-                "</div>\n" +
-                "</div>" +
-                "<div class=\"col-md-4 error-hidden\" id=\"second-block-" + item.id + "\"></div>" +
-                "</div>\n" +
-                "</div>"
         });
 
-        $("#user-list").html(userList);
+        var imgSrc;
+
+        if (item.coverId === null) {
+            var contextPath = $('#contextPathHolder').attr('data-contextPath');;
+            imgSrc = contextPath + "/img/core-img/user_default.png";
+        } else {
+            imgSrc = "/user-cover-files/download/" + item.coverId;
+        }
+
+        userList += "<div class=\"card mb-3 w-50 mr-auto ml-auto\" style=\"max-width: 540px;\" id=\"full-info-" + item.id + "\">\n" +
+            "<div class=\"row no-gutters\">\n" +
+            "<div class=\"col-md-4 d-flex flex-column justify-content-center\">\n" +
+            "<img src=\"" + imgSrc + "\" class=\"card-img\" alt=\"user photo\">\n" +
+            "</div>\n" +
+            "<div class=\"col-md-8\" id=\"first-block-" + item.id + "\">\n" +
+            "<div class=\"card-body\">\n" +
+            "<h5 class=\"card-title\">User No." + item.id + "</h5>\n" +
+            "<p class=\"card-text\">\n" +
+            "<b>First name:</b> " + item.firstName + "<br>\n" +
+            "<b>Last name:</b> " + item.lastName + "<br>\n" +
+            "<b>Email:</b> " + item.email + "<br>\n" +
+            "<b>Roles:</b>\n" + roles +
+            "</p>\n" +
+            "<div class=\"d-flex flex-row\" id=\"buttons-" + item.id + "\">\n" +
+            "<button class=\"btn mosh-btn full-info\" id=\"" + item.id + "\">Full info</button>\n" +
+            "<a class=\"btn mosh-btn ml-4\" href=\"/user/edit?id=" + item.id + "\">Edit</a>\n" +
+            "</div>\n" +
+            "</div>\n" +
+            "</div>" +
+            "<div class=\"col-md-4 error-hidden\" id=\"second-block-" + item.id + "\"></div>" +
+            "</div>\n" +
+            "</div>"
     });
+
+    $("#user-list").html(userList);
+}
 
 function getSubjects(userId){
     var subjects = $.parseJSON($.ajax({
@@ -131,4 +135,25 @@ $(document).on("click", ".info-collapse", function (event) {
     $("#" + id).html("Full info");
 
     $("#second-block-" + id).html("");
+});
+
+$("#search-user").click(function (event) {
+    event.preventDefault();
+
+    var value = $("#search-value").val();
+
+    if (value === ""){
+        return;
+    }
+
+    var user = $.parseJSON($.ajax({
+        url: "/user/api/edit?id=" + value,
+        method: "GET",
+        dataType: "json",
+        async: false
+    }).responseText);
+
+    getUserCards(new Array(user));
+
+    $("#search-value").val("");
 });
