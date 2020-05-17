@@ -130,6 +130,7 @@
 
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
 <script src="${pageContext.request.contextPath}/js/cabinet_user_edit.js"></script>
+<script src="${pageContext.request.contextPath}/js/user_cover_file.js"></script>
 
 </body>
 </html>

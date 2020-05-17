@@ -158,6 +158,10 @@ public class FacultyRestController {
             errorsMap.put("applyError", "You have already applied!");
         }
 
+        if (user.getCoverId() == null || user.getAge() == 0 || user.getCountry() == null || user.getCity() == null || user.getGender() == null){
+            errorsMap.put("applyError", "You must fill out all the information on the cabinet page about yourself before applying!");
+        }
+
         if (!errorsMap.isEmpty()){
             return new ResponseEntity(errorsMap, HttpStatus.BAD_REQUEST);
         }

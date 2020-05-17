@@ -2,7 +2,7 @@ $.get("/cabinet/api/user-edit")
     .done(function (user) {
         var imgSrc;
 
-        if (user.coverId === "") {
+        if (user.coverId === null) {
             var contextPath = $('#contextPathHolder').attr('data-contextPath');;
             imgSrc = contextPath + "/img/core-img/user_default.png";
         } else {
