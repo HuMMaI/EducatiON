@@ -39,22 +39,8 @@ public class CabinetController {
         return "cabinet";
     }
 
-    @GetMapping("{user}")
-    public String cabinetEditForm(@PathVariable User user, Model model){
-        model.addAttribute("user", user);
-
+    @GetMapping("/edit")
+    public String cabinetEditForm(){
         return "cabinetUserEdit";
-    }
-
-    @PostMapping
-    public String userEdit(@RequestParam("id") User user, @ModelAttribute UserEditDto userEditDto){
-        user.setEmail(userEditDto.getEmail());
-        user.setFirstName(userEditDto.getFirstName());
-        user.setLastName(userEditDto.getLastName());
-        user.setCoverId(userEditDto.getCoverId());
-
-        userService.save(user);
-
-        return "redirect:/cabinet";
     }
 }

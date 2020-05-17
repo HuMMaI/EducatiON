@@ -46,6 +46,9 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="single-blog wow fadeInUp" data-wow-delay="0.2s">
+                                <div class="w-100 text-right">
+                                    <p><a href="/cabinet/edit">Edit</a></p>
+                                </div>
                                 <div class="blog-post-thumb d-flex justify-content-center">
                                     <img src="" id="profile-img" alt="">
                                 </div>
