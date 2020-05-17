@@ -3,6 +3,14 @@ $.get("/cabinet/api/user-info")
         $("#user-first-name").html(user.firstName);
         $("#user-last-name").html(user.lastName);
         $("#user-email").html(user.email);
+        var age = user.age === 0 ? "<i>Empty</i>" : user.age;
+        $("#user-age").html(age);
+        var gender = user.gender === null ? "<i>Empty</i>" : user.gender;
+        $("#user-gender").html(gender);
+        var country = user.country === null ? "<i>Empty</i>" : user.country;
+        $("#user-country").html(country);
+        var city = user.city === null ? "<i>Empty</i>" : user.city;
+        $("#user-city").html(city);
 
         $.get("/cabinet/api/request-info?userId=" + user.id)
             .done(function (data) {

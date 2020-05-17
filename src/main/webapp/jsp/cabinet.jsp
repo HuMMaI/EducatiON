@@ -83,6 +83,26 @@
                         <h5>Email</h5>
                         <p id="user-email"></p>
                     </div>
+
+                    <div class="blog-post-categories mb-2">
+                        <h5>Age</h5>
+                        <p id="user-age"></p>
+                    </div>
+
+                    <div class="blog-post-categories mb-2">
+                        <h5>Gender</h5>
+                        <p id="user-gender"></p>
+                    </div>
+
+                    <div class="blog-post-categories mb-2">
+                        <h5>Country</h5>
+                        <p id="user-country"></p>
+                    </div>
+
+                    <div class="blog-post-categories mb-2">
+                        <h5>City</h5>
+                        <p id="user-city"></p>
+                    </div>
                 </div>
             </div>
         </div>
