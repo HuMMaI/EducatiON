@@ -28,4 +28,25 @@ public class SubjectService {
     public List<Subject> findByUserId(int userId) {
         return subjectsRepository.findByUserId(userId);
     }
+
+    public void deleteById(int id) {
+        subjectsRepository.deleteById(id);
+    }
+
+    public boolean subjectCheck(String subjectName, int userId) {
+        List<String> subjects = subjectsRepository.findAllSubjectNamesByUserId(userId);
+
+        if (subjects.isEmpty()){
+            return false;
+        }
+
+        return subjects.contains(subjectName);
+    }
+
+    public boolean numberOfSubjectsCheck(int userId) {
+        long numberOfSubjects = subjectsRepository.findAllSubjectNamesByUserId(userId).stream()
+                .count();
+
+        return numberOfSubjects < 4;
+    }
 }

@@ -1,14 +1,16 @@
 package org.lgs.lviv.education.entities;
 
-public enum FacultySubjects {
+public enum SubjectNames {
     MATHEMATICS("Mathematics"),
     PHYSICS("Physics"),
     HISTORY("History"),
-    FOREIGN_LANGUAGE("Foreign language");
+    FOREIGN_LANGUAGE("Foreign language"),
+    GEOGRAPHY("Geography"),
+    BIOLOGY("Biology");
 
     String subjectName;
 
-    FacultySubjects(String name){
+    SubjectNames(String name){
         this.subjectName = name;
     }
 

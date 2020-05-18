@@ -25,6 +25,17 @@ $.get("/faculty/api/edit?id=" + id)
 
                 $("#faculty-subjects").html(subjects);
             });
+
+        $.get("/faculty/api/specializations")
+            .done(function (specializations) {
+                var specializationList = "";
+
+                jQuery.each(specializations, function (i, item) {
+                    specializationList += "<option value=\"" + item + "\" " + ((faculty.specialization === item) ? 'selected' : '') + ">" + item + "</option>";
+                });
+
+                $("#specialization-name").append(specializationList);
+            });
     });
 
 $("#save-btn").click(function (event) {
@@ -35,6 +46,7 @@ $("#save-btn").click(function (event) {
     var name = $("input[name='facultyName']").val();
     var numberOfSeatsStr = $("input[name='numberOfSeats']").val();
     var numberOfSeats = (numberOfSeatsStr === "") ? null : parseInt(numberOfSeatsStr, 10);
+    var specialization = $("#specialization-name").val();
 
     var subjectsArray = [];
     $.each($("input[class='subject']:checked"), function () {
@@ -46,7 +58,8 @@ $("#save-btn").click(function (event) {
     var faculty = {
         name,
         numberOfSeats,
-        subjects
+        subjects,
+        specialization
     };
 
     $.ajax({
@@ -86,6 +99,13 @@ $("#save-btn").click(function (event) {
                         $("#subjects-error").css("display", "block");
                         $("#subjects-error").html(item);
                         break;
+
+                    case "specializationError":
+                        $("#specialization-name").addClass("is-invalid");
+                        $("#specialization-name").addClass("error-color");
+                        $("#specialization-error").removeClass("error-hidden");
+                        $("#specialization-error").html(item);
+                        break;
                 }
             });
 
@@ -113,4 +133,11 @@ $(document).on("change", "input[type='checkbox']", function () {
     $("#subjects-error").addClass("error-hidden");
     $("#subjects-error").css("display", "none");
     $("#subjects-error").html();
+});
+
+$(document).on("change", "#specialization-name", function () {
+    $("#specialization-name").removeClass("is-invalid");
+    $("#specialization-name").removeClass("error-color");
+    $("#specialization-error").addClass("error-hidden");
+    $("#specialization-error").html();
 });

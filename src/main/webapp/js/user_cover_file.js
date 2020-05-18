@@ -8,7 +8,8 @@ $("#cover-file").change(function (){
 
     fd.append('coverFile', file);
     $.ajax({
-        url: '/user-cover-files/upload?' + $("#sec-token").attr('name') + '=' + $("#sec-token").val(),
+        url: '/user-cover-files/upload',
+        headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
         type: 'post',
         data: fd,
         contentType: false,
@@ -16,7 +17,7 @@ $("#cover-file").change(function (){
         success: function (coverId) {
             $("#user-cover")
                 .attr("src", "/user-cover-files/download/" + coverId);
-            $("#cover-id").val(coverId)
+            $("#cover-id").val(coverId);
         },
     });
 });

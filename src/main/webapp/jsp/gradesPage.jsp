@@ -9,8 +9,9 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <title>Create faculty</title>
+    <title>Grades</title>
 </head>
 <body>
 
@@ -44,18 +45,30 @@
             <div class="col-12">
                 <div class="contact-form-area">
                     <h2>Subjects</h2>
-                    <form action="/grades/add-subject" method="post">
+                    <div class="alert alert-danger error-hidden d-flex flex-row" id="subjectExistError" role="alert">
+                        <span id="message"></span>
+                        <span class="alert-link ml-auto" id="subject-alert-close"><i class="fas fa-times"></i></span>
+                    </div>
+                    <form action="">
                         <div class="row">
                             <div class="col-12 col-md-5">
-                                <input type="text" class="form-control field-create" placeholder="Subject name" name="name">
+                                <select class="form-control field-create" id="subject-name" required>
+                                    <option value="" disabled selected hidden>Select subject</option>
+                                </select>
+                                <div class="invalid-feedback error-hidden" id="subject-name-error">
+
+                                </div>
                             </div>
                             <div class="col-12 col-md-5">
-                                <input type="number" class="form-control field-create" placeholder="Subject grade" name="grade">
+                                <input type="number" class="form-control field-create" placeholder="Subject grade" name="grade" id="subject-grade">
+                                <div class="invalid-feedback error-hidden" id="grade-error">
+
+                                </div>
                             </div>
                             <div class="col-12 col-md-2">
-                                <input type="hidden" value="${userId}" name="user">
+                                <input type="hidden" value="subject" name="subject">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button class="btn mosh-btn" type="submit">Add subject</button>
+                                <button class="btn mosh-btn" id="add-btn" type="submit">Add subject</button>
                             </div>
                         </div>
                     </form>
@@ -65,24 +78,8 @@
     </div>
 
     <div class="container">
-        <div class="d-flex flex-wrap">
-            <c:forEach items="${subjects}" var="subject">
-                <div class="card mb-3 w-50 mr-auto ml-auto" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">${subject.name}</h5>
-                                <p class="card-text">Grade: ${subject.grade}</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-flex flex-column justify-content-around">
-                            <button class="btn mosh-btn" type="submit">Edit</button>
-                            <button class="btn mosh-btn" type="submit">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
+        <div class="d-flex flex-wrap" id="subject-cards">
+
         </div>
     </div>
 
@@ -91,18 +88,30 @@
             <div class="col-12">
                 <div class="contact-form-area">
                     <h2>Certificate</h2>
-                    <form action="/grades/add-certificate" method="post">
+                    <div class="alert alert-danger error-hidden d-flex flex-row" id="certificateExistError" role="alert">
+                        <span id="certificateErrorMessage"></span>
+                        <span class="alert-link ml-auto" id="certificate-alert-close"><i class="fas fa-times"></i></span>
+                    </div>
+                    <form action="">
                         <div class="row">
                             <div class="col-12 col-md-5">
-                                <input type="text" class="form-control field-create" placeholder="Certificate subject name" name="name">
+                                <select class="form-control field-create" id="certificate-name" required>
+                                    <option value="" disabled selected hidden>Select subject</option>
+                                </select>
+                                <div class="invalid-feedback error-hidden" id="certificate-name-error">
+
+                                </div>
                             </div>
                             <div class="col-12 col-md-5">
-                                <input type="number" class="form-control field-create" placeholder="Certificate subject grade" name="grade">
+                                <input type="number" class="form-control field-create" placeholder="Certificate subject grade" name="grade" id="certificate-grade">
+                                <div class="invalid-feedback error-hidden" id="certificate-grade-error">
+
+                                </div>
                             </div>
                             <div class="col-12 col-md-2">
-                                <input type="hidden" value="${userId}" name="user">
+                                <input type="hidden" value="certificate" name="certificate">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button class="btn mosh-btn" type="submit">Add subject</button>
+                                <button class="btn mosh-btn" id="certificate-add-btn" type="submit">Add subject</button>
                             </div>
                         </div>
                     </form>
@@ -112,24 +121,8 @@
     </div>
 
     <div class="container">
-        <div class="d-flex flex-wrap">
-            <c:forEach items="${certificates}" var="certificate">
-                <div class="card mb-3 w-50 mr-auto ml-auto" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">${certificate.name}</h5>
-                                <p class="card-text">Grade: ${certificate.grade}</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-flex flex-column justify-content-around">
-                            <button class="btn mosh-btn" type="submit">Edit</button>
-                            <button class="btn mosh-btn" type="submit">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
+        <div class="d-flex flex-wrap" id="certificate-cards">
+
         </div>
     </div>
 </section>
@@ -144,5 +137,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
+<script src="${pageContext.request.contextPath}/js/grades_page.js"></script>
 </body>
 </html>

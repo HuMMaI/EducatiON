@@ -45,6 +45,7 @@ public class UserService {
         user.setPassword(encodePassword);
 
         user.setEmailVerify(false);
+        user.setApply(false);
 
         UUID uuid = UUID.randomUUID();
         user.setVerifyHashCode(uuid.toString());

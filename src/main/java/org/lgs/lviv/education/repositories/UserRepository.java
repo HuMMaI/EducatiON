@@ -21,4 +21,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Query("UPDATE User u SET u.isEmailVerify=TRUE WHERE u.id=:userId")
     void confirmEmail(@Param("userId") int id);
+
+    @Query("SELECT u.coverId FROM User u WHERE u.id = :id")
+    String findCoverIdByUserId(@Param("id") int id);
 }

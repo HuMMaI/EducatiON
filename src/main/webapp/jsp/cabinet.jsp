@@ -46,8 +46,11 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="single-blog wow fadeInUp" data-wow-delay="0.2s">
+                                <div class="w-100 text-right">
+                                    <p><a href="/cabinet/edit">Edit</a></p>
+                                </div>
                                 <div class="blog-post-thumb d-flex justify-content-center">
-                                    <img src="/user-cover-files/download/${user.coverId}" alt="">
+                                    <img src="" id="profile-img" alt="">
                                 </div>
                                 <h2>Short information about you</h2>
                                 <p><i>Empty.</i></p>
@@ -71,17 +74,37 @@
 
                     <div class="blog-post-categories mb-2">
                         <h5>First name</h5>
-                        <p>${user.firstName}</p>
+                        <p id="user-first-name"></p>
                     </div>
 
                     <div class="blog-post-categories mb-2">
                         <h5>Last name</h5>
-                        <p>${user.lastName}</p>
+                        <p id="user-last-name"></p>
                     </div>
 
                     <div class="blog-post-categories mb-2">
                         <h5>Email</h5>
-                        <p>${user.email}</p>
+                        <p id="user-email"></p>
+                    </div>
+
+                    <div class="blog-post-categories mb-2">
+                        <h5>Age</h5>
+                        <p id="user-age"></p>
+                    </div>
+
+                    <div class="blog-post-categories mb-2">
+                        <h5>Gender</h5>
+                        <p id="user-gender"></p>
+                    </div>
+
+                    <div class="blog-post-categories mb-2">
+                        <h5>Country</h5>
+                        <p id="user-country"></p>
+                    </div>
+
+                    <div class="blog-post-categories mb-2">
+                        <h5>City</h5>
+                        <p id="user-city"></p>
                     </div>
                 </div>
             </div>
@@ -90,37 +113,15 @@
         <div class="row">
             <div class="col-12">
                 <h2>Requests</h2>
-                <div class="d-flex flex-wrap">
-                    <c:forEach items="${requests}" var="req">
-                        <div class="card mb-3 w-50 mr-auto ml-auto" style="max-width: 540px;">
-                            <div class="row no-gutters">
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Request No.${req.id}</h5>
-                                        <p class="card-text">Faculty: ${req.faculty.name}</p>
-                                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 d-flex flex-column justify-content-around text-center">
-                                    <p class="card-text">Status</p>
-                                    <button class="btn mosh-btn" type="submit">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
+                <div class="d-flex flex-wrap" id="user-requests">
+
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
+<script src="${pageContext.request.contextPath}/js/cabinet.js"></script>
 </body>
 </html>

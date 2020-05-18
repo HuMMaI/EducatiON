@@ -10,6 +10,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <title>Faculties</title>
 </head>
@@ -59,8 +60,12 @@
 
         <div class="d-flex flex-wrap">
             <c:forEach items="${faculties}" var="faculty">
+                <div class="alert alert-danger error-hidden d-flex flex-row w-100" id="card-${faculty.id}" role="alert">
+                    <span class="message" id="alertMessage-${faculty.id}"></span>
+                    <span class="alert-link ml-auto alert-close"><i class="fas fa-times"></i></span>
+                </div>
                 <div class="card text-center w-100 mb-3">
-                    <h5 class="card-header">IT</h5>
+                    <h5 class="card-header">${faculty.specialization}</h5>
                     <div class="card-body">
                         <h5 class="card-title">${faculty.name}</h5>
                         <p class="card-text">
@@ -70,13 +75,14 @@
                                 &mdash;${subject.toString()}<br>
                             </c:forEach>
                         </p>
-                        <form action="/faculty/apply" method="post">
-                            <input type="hidden" value="${userId}" name="user">
-                            <input type="hidden" value="${faculty.id}" name="faculty">
+                        <form action="">
+                            <input type="hidden" value="${userId}" name="userId">
+                            <input type="hidden" value="${faculty.id}" name="facultyId">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <div class="d-flex justify-content-center">
                                 <security:authorize access="hasAuthority('ENROLLEE')">
-                                    <button class="btn mosh-btn mt-50" type="submit">Apply</button>
+                                    <a class="btn mosh-btn mt-50" href="/statement/rating-list?id=${faculty.id}">Show rating list</a>
+                                    <button class="btn mosh-btn mt-50 apply-btn ml-4" id="${faculty.id}" type="submit">Apply</button>
                                 </security:authorize>
                                 <security:authorize access="hasAuthority('ADMIN')">
                                     <a class="btn mosh-btn mt-50 ml-4" href="/faculty/edit?id=${faculty.id}">Edit</a>
@@ -100,5 +106,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
+<script src="${pageContext.request.contextPath}/js/faculty_list.js"></script>
 </body>
 </html>

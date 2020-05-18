@@ -20,6 +20,14 @@ public class User {
 
     private String password;
 
+    private int age;
+
+    private String gender;
+
+    private String country;
+
+    private String city;
+
     @Enumerated(EnumType.ORDINAL)
     @ElementCollection(targetClass = Roles.class, fetch = FetchType.EAGER)
     @Column(name = "role")
@@ -30,6 +38,8 @@ public class User {
 
     private boolean isEmailVerify;
     private String verifyHashCode;
+
+    private boolean isApply;
 
     public User() {
     }
@@ -111,5 +121,45 @@ public class User {
 
     public void setVerifyHashCode(String verifyHashCode) {
         this.verifyHashCode = verifyHashCode;
+    }
+
+    public boolean isApply() {
+        return isApply;
+    }
+
+    public void setApply(boolean apply) {
+        isApply = apply;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

@@ -16,9 +16,11 @@ public class Faculty {
     private int numberOfSeats;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = FacultySubjects.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = SubjectNames.class, fetch = FetchType.EAGER)
     @Column(name = "subject")
-    private Set<FacultySubjects> subjects;
+    private Set<SubjectNames> subjects;
+
+    private String specialization;
 
     public Faculty() {
     }
@@ -52,11 +54,19 @@ public class Faculty {
         this.numberOfSeats = numberOfSeats;
     }
 
-    public Set<FacultySubjects> getSubjects() {
+    public Set<SubjectNames> getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(Set<FacultySubjects> subjects) {
+    public void setSubjects(Set<SubjectNames> subjects) {
         this.subjects = subjects;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
     }
 }

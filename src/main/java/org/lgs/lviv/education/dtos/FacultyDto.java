@@ -19,6 +19,9 @@ public class FacultyDto {
     @NotEmpty(message = "Subjects can`t be empty!")
     private Set<String> subjects;
 
+    @NotBlank(message = "Specialization can`t be empty!")
+    private String specialization;
+
     public String getName() {
         return name;
     }
@@ -44,5 +47,13 @@ public class FacultyDto {
         this.subjects = subjects.equals("") ? Collections.emptySet() : Arrays.stream(subjectsArray)
                 .map(String::valueOf)
                 .collect(Collectors.toSet());
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
     }
 }

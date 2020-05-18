@@ -44,7 +44,7 @@
             <div class="col-12">
                 <div class="contact-form-area">
                     <h2>Edit faculty</h2>
-                    <form action="/faculty" method="post">
+                    <form action="">
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <input type="text" class="form-control field-create" placeholder="Name" name="facultyName" id="faculty-name" value="">
@@ -55,6 +55,14 @@
                             <div class="col-12 col-md-6">
                                 <input type="number" class="form-control field-create" placeholder="Number of seats" name="numberOfSeats" id="number-of-seats" value="">
                                 <div class="invalid-feedback error-hidden" id="number-of-seats-error">
+
+                                </div>
+                            </div>
+                            <div class="col-12" id="faculty-specialization">
+                                <select class="form-control field-create" id="specialization-name" required>
+                                    <option value="" disabled selected hidden>Select specialization</option>
+                                </select>
+                                <div class="invalid-feedback error-hidden" id="specialization-error">
 
                                 </div>
                             </div>
