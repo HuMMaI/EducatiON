@@ -60,3 +60,19 @@ $(document).ready(function () {
         });
     });
 });
+
+$(document).on("click", ".delete-btn", function (event) {
+    event.preventDefault();
+
+    $(".delete-btn").prop("disabled", true);
+    var facultyId = $(this).attr("faculty-id");
+
+    $.ajax({
+        url: "/faculty/api/delete/" + facultyId,
+        headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+        type: "DELETE",
+        success: function () {
+            location.reload();
+        }
+    });
+});

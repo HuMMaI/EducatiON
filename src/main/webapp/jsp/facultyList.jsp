@@ -89,6 +89,7 @@
                                 </security:authorize>
                                 <security:authorize access="hasAuthority('ADMIN')">
                                     <a class="btn mosh-btn mt-50 ml-4" href="/faculty/edit?id=${faculty.id}"><spring:message code="faculty_list_edit"/></a>
+                                    <button class="btn mosh-btn mt-50 ml-4 delete-btn" faculty-id="${faculty.id}"><spring:message code="faculty_list_delete"/></button>
                                 </security:authorize>
                             </div>
                         </form>

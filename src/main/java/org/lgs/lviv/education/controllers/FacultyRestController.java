@@ -173,4 +173,10 @@ public class FacultyRestController {
 
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete/{facultyId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void deleteFaculty(@PathVariable("facultyId") int facultyId){
+        facultyService.delete(facultyId);
+    }
 }
