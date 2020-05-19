@@ -40,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("email").passwordParameter("password")
                     .permitAll().successHandler(authenticationSuccessHandlerImpl)
                 .and()
+                    .rememberMe()
+                .and()
                     .logout()
                     .permitAll()
                 .and()

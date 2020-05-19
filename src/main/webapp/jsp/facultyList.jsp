@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,11 +28,11 @@
         <div class="row h-100 align-items-center">
             <div class="col-12">
                 <div class="bradcumbContent">
-                    <h2>Faculties</h2>
+                    <h2><spring:message code="faculties_menu"/></h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">See Our Faculties</li>
+                            <li class="breadcrumb-item"><a href="/"><spring:message code="home_menu"/></a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><spring:message code="faculty_list_title"/></li>
                         </ol>
                     </nav>
                 </div>
@@ -48,9 +49,11 @@
                     <div class="mosh-projects-menu">
                         <div class="faculty-filter-menu d-flex flex-row">
                             <p class="active" data-filter="*">All</p>
-                            <p data-filter=".it">IT</p>
+                            <c:forEach items="${specializations}" var="specialization">
+                                <p data-filter=".${specialization}">${specialization}</p>
+                            </c:forEach>
                             <security:authorize access="hasAuthority('ADMIN')">
-                                <p class="ml-auto"><a href="/faculty/add">Add new faculty</a></p>
+                                <p class="ml-auto"><a href="/faculty/add"><spring:message code="faculty_list_add"/></a></p>
                             </security:authorize>
                         </div>
                     </div>
@@ -58,19 +61,19 @@
             </div>
         </div>
 
-        <div class="d-flex flex-wrap">
+        <div class="faculties d-flex flex-wrap">
             <c:forEach items="${faculties}" var="faculty">
                 <div class="alert alert-danger error-hidden d-flex flex-row w-100" id="card-${faculty.id}" role="alert">
                     <span class="message" id="alertMessage-${faculty.id}"></span>
                     <span class="alert-link ml-auto alert-close"><i class="fas fa-times"></i></span>
                 </div>
-                <div class="card text-center w-100 mb-3">
+                <div class="card text-center w-100 mb-3 faculty-cards ${faculty.specialization}">
                     <h5 class="card-header">${faculty.specialization}</h5>
                     <div class="card-body">
                         <h5 class="card-title">${faculty.name}</h5>
                         <p class="card-text">
-                            Number of seats: ${faculty.numberOfSeats}<br>
-                            Compulsory subjects:<br>
+                            <spring:message code="faculty_list_number_of_seats"/> ${faculty.numberOfSeats}<br>
+                            <spring:message code="faculty_list_subjects"/><br>
                             <c:forEach items="${faculty.subjects}" var="subject">
                                 &mdash;${subject.toString()}<br>
                             </c:forEach>
@@ -81,11 +84,11 @@
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <div class="d-flex justify-content-center">
                                 <security:authorize access="hasAuthority('ENROLLEE')">
-                                    <a class="btn mosh-btn mt-50" href="/statement/rating-list?id=${faculty.id}">Show rating list</a>
-                                    <button class="btn mosh-btn mt-50 apply-btn ml-4" id="${faculty.id}" type="submit">Apply</button>
+                                    <a class="btn mosh-btn mt-50" href="/statement/rating-list?id=${faculty.id}"><spring:message code="faculty_list_show_rating"/></a>
+                                    <button class="btn mosh-btn mt-50 apply-btn ml-4" id="${faculty.id}" type="submit"><spring:message code="faculty_list_apply"/></button>
                                 </security:authorize>
                                 <security:authorize access="hasAuthority('ADMIN')">
-                                    <a class="btn mosh-btn mt-50 ml-4" href="/faculty/edit?id=${faculty.id}">Edit</a>
+                                    <a class="btn mosh-btn mt-50 ml-4" href="/faculty/edit?id=${faculty.id}"><spring:message code="faculty_list_edit"/></a>
                                 </security:authorize>
                             </div>
                         </form>
@@ -98,14 +101,9 @@
 
 <jsp:include page="footer.jsp"></jsp:include>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
 <script src="${pageContext.request.contextPath}/js/faculty_list.js"></script>
+
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
 </body>
 </html>

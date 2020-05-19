@@ -2,6 +2,7 @@ package org.lgs.lviv.education.controllers;
 
 import org.lgs.lviv.education.dtos.GradeDeleteDto;
 import org.lgs.lviv.education.dtos.GradeDto;
+import org.lgs.lviv.education.dtos.GradeUpdateDto;
 import org.lgs.lviv.education.entities.Certificate;
 import org.lgs.lviv.education.entities.SubjectNames;
 import org.lgs.lviv.education.entities.Subject;
@@ -142,6 +143,25 @@ public class GradesRestController {
             subjectService.deleteById(gradeDeleteDto.getId());
         } else {
             certificateService.deleteById(gradeDeleteDto.getId());
+        }
+    }
+
+    @PatchMapping("/subject-update")
+    public void updateSubject(@Valid @ModelAttribute GradeUpdateDto gradeUpdateDto, BindingResult bindingResult){
+        int grade = gradeUpdateDto.getGrade();
+
+        if (bindingResult.hasErrors()){
+            if (gradeUpdateDto.getGradeType().equals("subject")){
+                grade = subjectService.getGradeById(gradeUpdateDto.getId());
+            } else {
+                grade = certificateService.getGradeById(gradeUpdateDto.getId());
+            }
+        }
+
+        if (gradeUpdateDto.getGradeType().equals("subject")){
+            subjectService.updateGrade(grade, gradeUpdateDto.getId());
+        } else {
+            certificateService.updateGrade(grade, gradeUpdateDto.getId());
         }
     }
 }

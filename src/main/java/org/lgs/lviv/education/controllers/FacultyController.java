@@ -1,6 +1,7 @@
 package org.lgs.lviv.education.controllers;
 
 import org.lgs.lviv.education.entities.Faculty;
+import org.lgs.lviv.education.entities.FacultySpecialization;
 import org.lgs.lviv.education.entities.Request;
 import org.lgs.lviv.education.services.FacultyService;
 import org.lgs.lviv.education.services.RequestService;
@@ -11,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/faculty")
@@ -22,6 +26,11 @@ public class FacultyController {
 
     @GetMapping
     public String facultyList(Model model, HttpServletRequest request){
+        List<String> specializationStrings = Arrays.stream(FacultySpecialization.values())
+                .map(FacultySpecialization::toString)
+                .collect(Collectors.toList());
+
+        model.addAttribute("specializations", specializationStrings);
         model.addAttribute("faculties", facultyService.findAll());
 
         return "facultyList";

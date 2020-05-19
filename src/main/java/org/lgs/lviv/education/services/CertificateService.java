@@ -49,4 +49,12 @@ public class CertificateService {
     public void deleteById(int id){
         certificatesRepository.deleteById(id);
     }
+
+    public void updateGrade(int grade, int id){
+        certificatesRepository.updateGrade(grade, id);
+    }
+
+    public int getGradeById(int id){
+        return certificatesRepository.getGradeById(id);
+    }
 }
