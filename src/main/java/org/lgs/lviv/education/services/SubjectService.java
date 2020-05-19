@@ -49,4 +49,12 @@ public class SubjectService {
 
         return numberOfSubjects < 4;
     }
+
+    public void updateGrade(int grade, int id){
+        subjectsRepository.updateGrade(grade, id);
+    }
+
+    public int getGradeById(int id){
+        return subjectsRepository.getGradeById(id);
+    }
 }

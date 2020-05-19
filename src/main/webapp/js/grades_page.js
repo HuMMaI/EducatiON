@@ -20,13 +20,14 @@ $.get("/grades/api/current-user-subjects")
                 "<div class=\"col-md-8\">\n" +
                 "<div class=\"card-body\">\n" +
                 "<h5 class=\"card-title\">" + item.name + "</h5>\n" +
-                "<p class=\"card-text\">Grade: " + item.grade + "</p>\n" +
+                "<p class=\"card-text\" id=\"subject-grade-p-" + item.id + "\">Grade: " + item.grade + "</p>\n" +
+                "<input type=\"number\" class=\"form-control field-create error-hidden\" placeholder=\"Subject grade\" name=\"grade\" id=\"subject-grade-edit-" + item.id + "\" value=\"" + item.grade + "\">" +
                 "<p class=\"card-text\"><small class=\"text-muted\">Last updated 3 mins ago</small></p>\n" +
                 "</div>\n" +
                 "</div>\n" +
                 "<div class=\"col-md-4 d-flex flex-column justify-content-around\">\n" +
                 "<input type=\"hidden\" value=\"" + item.id + "\" name=\"subjectId\">\n" +
-                "<button class=\"btn mosh-btn\" type=\"submit\">Edit</button>\n" +
+                "<button class=\"btn mosh-btn edit-btn\" grade-type=\"subject\" subject-id=\"" + item.id + "\"  type=\"submit\">Edit</button>\n" +
                 "<button class=\"btn mosh-btn delete-btn\" id=\"" + item.id + " subject\" type=\"submit\">Delete</button>\n" +
                 "</div>\n" +
                 "</div>\n" +
@@ -35,6 +36,43 @@ $.get("/grades/api/current-user-subjects")
 
         $("#subject-cards").html(subjectCards);
     });
+
+$(document).on("click", ".edit-btn", function (event) {
+    event.preventDefault();
+
+    $(this).html("Save");
+    $(this).addClass("save-grade");
+    var gradeType = $(this).attr("grade-type");
+
+    var subjectId = $(this).attr("subject-id");
+
+    $("#" + gradeType + "-grade-p-" + subjectId).addClass("error-hidden");
+    $("#" + gradeType + "-grade-edit-" + subjectId).removeClass("error-hidden");
+});
+
+$(document).on("click", ".save-grade",function () {
+    $(this).prop("disabled", true);
+
+    var gradeType = $(this).attr("grade-type");
+    var subjectId = $(this).attr("subject-id");
+    var grade = $("#" + gradeType + "-grade-edit-" + subjectId).val();
+
+    var newSubject = {
+        id: subjectId,
+        grade: grade,
+        gradeType: gradeType
+    };
+
+    $.ajax({
+        url: "/grades/api/subject-update",
+        headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+        method: "PATCH",
+        data: newSubject,
+        success: function () {
+            location.reload();
+        }
+    });
+});
 
 $.get("/grades/api/current-user-certificate")
     .done(function (certificate) {
@@ -46,13 +84,14 @@ $.get("/grades/api/current-user-certificate")
                 "<div class=\"col-md-8\">\n" +
                 "<div class=\"card-body\">\n" +
                 "<h5 class=\"card-title\">" + item.name + "</h5>\n" +
-                "<p class=\"card-text\">Grade: " + item.grade + "</p>\n" +
+                "<p class=\"card-text\" id=\"certificate-grade-p-" + item.id + "\">Grade: " + item.grade + "</p>\n" +
+                "<input type=\"number\" class=\"form-control field-create error-hidden\" placeholder=\"Certificate subject grade\" name=\"grade\" id=\"certificate-grade-edit-" + item.id + "\" value=\"" + item.grade + "\">" +
                 "<p class=\"card-text\"><small class=\"text-muted\">Last updated 3 mins ago</small></p>\n" +
                 "</div>\n" +
                 "</div>\n" +
                 "<div class=\"col-md-4 d-flex flex-column justify-content-around\">\n" +
                 "<input type=\"hidden\" value=\"" + item.id + "\" name=\"certificateId\">\n" +
-                "<button class=\"btn mosh-btn\" type=\"submit\">Edit</button>\n" +
+                "<button class=\"btn mosh-btn edit-btn\" grade-type=\"certificate\" subject-id=\"" + item.id + "\" type=\"submit\">Edit</button>\n" +
                 "<button class=\"btn mosh-btn delete-btn\" id=\"" + item.id + " certificate\" type=\"submit\">Delete</button>\n" +
                 "</div>\n" +
                 "</div>\n" +
