@@ -49,7 +49,9 @@
                     <div class="mosh-projects-menu">
                         <div class="faculty-filter-menu d-flex flex-row">
                             <p class="active" data-filter="*">All</p>
-                            <p data-filter=".it">IT</p>
+                            <c:forEach items="${specializations}" var="specialization">
+                                <p data-filter=".${specialization}">${specialization}</p>
+                            </c:forEach>
                             <security:authorize access="hasAuthority('ADMIN')">
                                 <p class="ml-auto"><a href="/faculty/add"><spring:message code="faculty_list_add"/></a></p>
                             </security:authorize>
@@ -59,13 +61,13 @@
             </div>
         </div>
 
-        <div class="d-flex flex-wrap">
+        <div class="faculties d-flex flex-wrap">
             <c:forEach items="${faculties}" var="faculty">
                 <div class="alert alert-danger error-hidden d-flex flex-row w-100" id="card-${faculty.id}" role="alert">
                     <span class="message" id="alertMessage-${faculty.id}"></span>
                     <span class="alert-link ml-auto alert-close"><i class="fas fa-times"></i></span>
                 </div>
-                <div class="card text-center w-100 mb-3">
+                <div class="card text-center w-100 mb-3 faculty-cards ${faculty.specialization}">
                     <h5 class="card-header">${faculty.specialization}</h5>
                     <div class="card-body">
                         <h5 class="card-title">${faculty.name}</h5>
@@ -101,5 +103,7 @@
 
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
 <script src="${pageContext.request.contextPath}/js/faculty_list.js"></script>
+
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
 </body>
 </html>

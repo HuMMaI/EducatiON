@@ -43,3 +43,20 @@ $(".alert-close").click(function () {
     $(".alert").addClass("error-hidden");
     $(".message").html();
 });
+
+$(document).ready(function () {
+    var $grid = $('.faculties').isotope({
+        itemSelector: '.faculty-cards',
+        percentPosition: true,
+        masonry: {
+            columnWidth: '.faculty-cards'
+        }
+    });
+
+    $('.faculty-filter-menu').on('click', 'p', function () {
+        var filterValue = $(this).attr('data-filter');
+        $grid.isotope({
+                filter: filterValue
+        });
+    });
+});

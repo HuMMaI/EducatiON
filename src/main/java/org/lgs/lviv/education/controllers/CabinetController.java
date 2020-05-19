@@ -1,10 +1,7 @@
 package org.lgs.lviv.education.controllers;
 
-import org.lgs.lviv.education.dtos.UserEditDto;
-import org.lgs.lviv.education.entities.Faculty;
 import org.lgs.lviv.education.entities.Request;
 import org.lgs.lviv.education.entities.User;
-import org.lgs.lviv.education.services.FacultyService;
 import org.lgs.lviv.education.services.RequestService;
 import org.lgs.lviv.education.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/cabinet")
