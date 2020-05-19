@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,16 +28,16 @@
         <!-- Single Hero Slides -->
         <div class="single-hero-slide d-flex align-items-end justify-content-center">
             <div class="hero-slide-content text-center">
-                <h2>Good IT faculties</h2>
-                <h4>Start logging into IT now!</h4>
+                <h2><spring:message code="slide_1_title"/></h2>
+                <h4><spring:message code="slide_1_content"/></h4>
                 <img class="slide-img" src="${pageContext.request.contextPath}/img/bg-img/device.png" alt="">
             </div>
         </div>
         <!-- Single Hero Slides -->
         <div class="single-hero-slide d-flex align-items-end justify-content-center">
             <div class="hero-slide-content text-center">
-                <h2>The best humanities faculties</h2>
-                <h4>Start to study in the humanitarian direction!</h4>
+                <h2><spring:message code="slide_2_title"/></h2>
+                <h4><spring:message code="slide_2_content"/></h4>
                 <img class="slide-img" src="${pageContext.request.contextPath}/img/bg-img/books.png" alt="">
             </div>
         </div>
@@ -49,15 +50,15 @@
             <div class="col-12 col-md-6">
                 <div class="section-heading">
                     <p>future</p>
-                    <h2>Why our university?</h2>
+                    <h2><spring:message code="info_about_faculty_title"/></h2>
                 </div>
                 <div class="features-content">
-                    <p>Our university has a very strong education system. All professors can help you with problems and indicate the right direction in training. If you want to become a good specialist, we will be waiting for you.</p>
+                    <p><spring:message code="info_about_faculty_content"/></p>
                     <!-- Progress Bar Content Area -->
                     <div class="features-progress-bar mt-50">
                         <!-- Single Progress Bar -->
                         <div class="single_progress_bar mb-15 wow fadeInUp" data-wow-delay="0.2s">
-                            <p>IT</p>
+                            <p><spring:message code="info_about_faculty_point_1"/></p>
                             <div id="bar1" class="barfiller">
                                 <div class="tipWrap">
                                     <span class="tip"></span>
@@ -67,7 +68,7 @@
                         </div>
                         <!-- Single Progress Bar -->
                         <div class="single_progress_bar mb-15 wow fadeInUp" data-wow-delay="0.4s">
-                            <p>Law</p>
+                            <p><spring:message code="info_about_faculty_point_2"/></p>
                             <div id="bar2" class="barfiller">
                                 <div class="tipWrap">
                                     <span class="tip"></span>
@@ -77,7 +78,7 @@
                         </div>
                         <!-- Single Progress Bar -->
                         <div class="single_progress_bar mb-15 wow fadeInUp" data-wow-delay="0.6s">
-                            <p>Management</p>
+                            <p><spring:message code="info_about_faculty_point_3"/></p>
                             <div id="bar3" class="barfiller">
                                 <div class="tipWrap">
                                     <span class="tip"></span>
@@ -100,29 +101,29 @@
     <div class="single-more-service-area">
         <div class="more-service-content text-center wow fadeInUp" data-wow-delay=".1s">
             <img src="${pageContext.request.contextPath}/img/core-img/trophy.png" alt="">
-            <h4>No1 in IT!</h4>
-            <p>More practice, less theory!</p>
+            <h4><spring:message code="features_1_title"/></h4>
+            <p><spring:message code="features_1_content"/></p>
         </div>
     </div>
     <div class="single-more-service-area">
         <div class="more-service-content text-center wow fadeInUp" data-wow-delay=".4s">
             <img src="${pageContext.request.contextPath}/img/core-img/edit.png" alt="">
-            <h4>Tests</h4>
-            <p>Every month verification test.</p>
+            <h4><spring:message code="features_2_title"/></h4>
+            <p><spring:message code="features_2_content"/></p>
         </div>
     </div>
     <div class="single-more-service-area">
         <div class="more-service-content text-center wow fadeInUp" data-wow-delay=".7s">
             <img src="${pageContext.request.contextPath}/img/core-img/video-camera.png" alt="">
-            <h4>Record</h4>
-            <p>Each lecture will be recorded and available to you.</p>
+            <h4><spring:message code="features_3_title"/></h4>
+            <p><spring:message code="features_3_content"/></p>
         </div>
     </div>
     <div class="single-more-service-area">
         <div class="more-service-content text-center wow fadeInUp" data-wow-delay="1s">
             <img src="${pageContext.request.contextPath}/img/core-img/presentation.png" alt="">
-            <h4>Project</h4>
-            <p>Each student will develop his own project.</p>
+            <h4><spring:message code="features_4_title"/></h4>
+            <p><spring:message code="features_4_content"/></p>
         </div>
     </div>
 </section>

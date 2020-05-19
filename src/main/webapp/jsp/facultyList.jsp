@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,11 +28,11 @@
         <div class="row h-100 align-items-center">
             <div class="col-12">
                 <div class="bradcumbContent">
-                    <h2>Faculties</h2>
+                    <h2><spring:message code="faculties_menu"/></h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">See Our Faculties</li>
+                            <li class="breadcrumb-item"><a href="/"><spring:message code="home_menu"/></a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><spring:message code="faculty_list_title"/></li>
                         </ol>
                     </nav>
                 </div>
@@ -50,7 +51,7 @@
                             <p class="active" data-filter="*">All</p>
                             <p data-filter=".it">IT</p>
                             <security:authorize access="hasAuthority('ADMIN')">
-                                <p class="ml-auto"><a href="/faculty/add">Add new faculty</a></p>
+                                <p class="ml-auto"><a href="/faculty/add"><spring:message code="faculty_list_add"/></a></p>
                             </security:authorize>
                         </div>
                     </div>
@@ -69,8 +70,8 @@
                     <div class="card-body">
                         <h5 class="card-title">${faculty.name}</h5>
                         <p class="card-text">
-                            Number of seats: ${faculty.numberOfSeats}<br>
-                            Compulsory subjects:<br>
+                            <spring:message code="faculty_list_number_of_seats"/> ${faculty.numberOfSeats}<br>
+                            <spring:message code="faculty_list_subjects"/><br>
                             <c:forEach items="${faculty.subjects}" var="subject">
                                 &mdash;${subject.toString()}<br>
                             </c:forEach>
@@ -81,11 +82,11 @@
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <div class="d-flex justify-content-center">
                                 <security:authorize access="hasAuthority('ENROLLEE')">
-                                    <a class="btn mosh-btn mt-50" href="/statement/rating-list?id=${faculty.id}">Show rating list</a>
-                                    <button class="btn mosh-btn mt-50 apply-btn ml-4" id="${faculty.id}" type="submit">Apply</button>
+                                    <a class="btn mosh-btn mt-50" href="/statement/rating-list?id=${faculty.id}"><spring:message code="faculty_list_show_rating"/></a>
+                                    <button class="btn mosh-btn mt-50 apply-btn ml-4" id="${faculty.id}" type="submit"><spring:message code="faculty_list_apply"/></button>
                                 </security:authorize>
                                 <security:authorize access="hasAuthority('ADMIN')">
-                                    <a class="btn mosh-btn mt-50 ml-4" href="/faculty/edit?id=${faculty.id}">Edit</a>
+                                    <a class="btn mosh-btn mt-50 ml-4" href="/faculty/edit?id=${faculty.id}"><spring:message code="faculty_list_edit"/></a>
                                 </security:authorize>
                             </div>
                         </form>

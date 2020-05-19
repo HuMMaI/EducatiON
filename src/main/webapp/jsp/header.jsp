@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,7 +17,7 @@
 
     <link id="contextPathHolder" data-contextPath="${pageContext.request.contextPath}"/>
 
-    <title>Hello, world!</title>
+    <title>EducatiON</title>
 </head>
 <body>
 
@@ -32,29 +33,26 @@
 
                         <div class="collapse navbar-collapse justify-content-end" id="mosh-navbar">
                             <ul class="navbar-nav animated" id="nav">
-                                <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/faculty">Faculties</a></li>
+                                <li class="nav-item active"><a class="nav-link" href="/"><spring:message code="home_menu"/></a></li>
+                                <li class="nav-item"><a class="nav-link" href="/faculty"><spring:message code="faculties_menu"/></a></li>
                                 <security:authorize access="hasAuthority('ENROLLEE')">
-                                    <li class="nav-item"><a class="nav-link" href="/grades">Grades list</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/grades"><spring:message code="grades_menu"/></a></li>
                                 </security:authorize>
                                 <security:authorize access="hasAuthority('ADMIN')">
-                                    <li class="nav-item"><a class="nav-link" href="/user">User list</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="/requests">Request list</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/user"><spring:message code="user_menu"/></a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/requests"><spring:message code="request_menu"/></a></li>
                                 </security:authorize>
                             </ul>
-                            <div class="search-form-area animated">
-                                <form action="#" method="post">
-                                    <input type="search" name="search" id="search" placeholder="Type keywords &amp; hit enter">
-                                    <button type="submit" class="d-none"><img src="${pageContext.request.contextPath}/img/core-img/search-icon.png" alt="Search"></button>
-                                </form>
-                            </div>
-                            <div class="search-button">
-                                <a href="#" id="search-btn"><img src="${pageContext.request.contextPath}/img/core-img/search-icon.png" alt="Search"></a>
+                            <div class="mr-3">
+                                <select class="custom-select custom-select-sm" id="locales">
+                                    <option value="en">En</option>
+                                    <option value="ua">Ua</option>
+                                </select>
                             </div>
                             <security:authorize access="isAnonymous()">
                                 <div class="login-register-btn">
-                                    <a href="/login">Login</a>
-                                    <a href="/registration">/ Register</a>
+                                    <a href="/login"><spring:message code="login_menu"/></a>
+                                    <a href="/registration"><spring:message code="register_menu"/></a>
                                 </div>
                             </security:authorize>
                             <security:authorize access="isAuthenticated()">
@@ -63,11 +61,11 @@
                                     <input type="hidden" id="user-img-src" value="">
                                     <input type="hidden" value="0" id="click-listener">
                                     <ul class="dropdown-menu dropdown-menu-right" id="user-panel">
-                                        <li><a class="dropdown-item" href="/cabinet">Cabinet</a></li>
+                                        <li><a class="dropdown-item" href="/cabinet"><spring:message code="cabinet_menu"/></a></li>
                                         <div class="dropdown-divider"></div>
                                         <li>
                                             <form action="/logout" method="post" id="logout-form">
-                                                <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit()">Log Out</a>
+                                                <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit()"><spring:message code="logout_menu"/></a>
                                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                             </form>
                                         </li>
@@ -90,5 +88,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/header.js"></script>
+<script src="${pageContext.request.contextPath}/js/lang.js"></script>
 </body>
 </html>
