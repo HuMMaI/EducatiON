@@ -180,27 +180,16 @@ $(document).on("click", ".cancel-btn", function (event) {
     var idArray = idStr.split(/\s+/);
     var requestId = $(this).attr("request-id");
 
-    $("#req-info-" + idArray[1]).html("");
+    $(".cancel-btn").prop("disabled", true);
 
-    var reasonInfo = "<div class=\"col-12\">\n" +
-        "<div class=\"d-flex flex-row\">\n" +
-        "<h5 class=\"card-title\">Reason</h5>\n" +
-        "<div class=\"col-md-1 text-right ml-auto\">\n" +
-        "<span class=\"alert-link info-close\"><i class=\"fas fa-times\"></i></span>\n" +
-        "</div>\n" +
-        "</div>" +
-        "<form action=\"\">\n" +
-        "<div class=\"input-group mb-3\">\n" +
-        "<input type=\"text\" class=\"form-control request-cancel\" placeholder=\"Write cancel reason\" aria-label=\"Cancel reason\" aria-describedby=\"button-addon2\">\n" +
-        "<div class=\"input-group-append\">\n" +
-        "<button class=\"btn btn-outline-secondary request-cancel\" type=\"button\" id=\"button-addon2 request-cancel " + requestId + "\">Send</button>\n" +
-        "</div>\n" +
-        "</div>" +
-        "</form>\n" +
-        "</div>";
-
-    $("#req-info-" + idArray[1]).html(reasonInfo);
-    $("#req-info-" + idArray[1]).removeClass("error-hidden");
+    $.ajax({
+        url: "/statement/api/cancel?id=" + requestId,
+        headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+        type: "POST"
+    })
+        .done(function () {
+            location.reload();
+        });
 });
 
 $(document).on("click", ".accept-btn", function (event) {
@@ -213,24 +202,6 @@ $(document).on("click", ".accept-btn", function (event) {
 
     $.ajax({
         url: "/statement/api/add?id=" + idArray[1],
-        headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
-        type: "POST"
-    })
-        .done(function () {
-            location.reload();
-        });
-});
-
-$(document).on("click", ".request-cancel", function (event) {
-    event.preventDefault();
-
-    var idStr = $(this).attr("id");
-    var idArray = idStr.split(/\s+/);
-
-    $(".request-cancel").prop("disabled", true);
-
-    $.ajax({
-        url: "/statement/api/cancel?id=" + idArray[2],
         headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
         type: "POST"
     })
