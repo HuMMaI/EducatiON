@@ -134,6 +134,7 @@
 <script src="${pageContext.request.contextPath}/js/plugin.js"></script>
 <script src="${pageContext.request.contextPath}/js/wow.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.barfiller.js"></script>
+<script src="${pageContext.request.contextPath}/js/slider.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 </body>
