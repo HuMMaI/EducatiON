@@ -135,6 +135,12 @@ public class FacultyRestController {
                 .map(SubjectNames::toString)
                 .collect(Collectors.toSet());
 
+        if (user.getCoverId() == null || user.getAge() == 0 || user.getCountry() == null || user.getCity() == null || user.getGender() == null){
+            errorsMap.put("applyError", "You must fill out all the information on the cabinet page about yourself before applying!");
+
+            return new ResponseEntity(errorsMap, HttpStatus.BAD_REQUEST);
+        }
+
         if (userSubjects.isEmpty() || userSubjects.size() < subjects.size()){
             errorsMap.put("subjectsEmptyError", "Please, add information about subjects");
 
@@ -156,10 +162,6 @@ public class FacultyRestController {
 
         if (user.isApply()){
             errorsMap.put("applyError", "You have already applied!");
-        }
-
-        if (user.getCoverId() == null || user.getAge() == 0 || user.getCountry() == null || user.getCity() == null || user.getGender() == null){
-            errorsMap.put("applyError", "You must fill out all the information on the cabinet page about yourself before applying!");
         }
 
         if (!errorsMap.isEmpty()){

@@ -54,6 +54,8 @@ $(document).ready(function () {
     });
 
     $('.faculty-filter-menu').on('click', 'p', function () {
+        $(".faculty-cards").css("position", "absolute")
+
         var filterValue = $(this).attr('data-filter');
         $grid.isotope({
                 filter: filterValue

@@ -5,6 +5,7 @@ import org.lgs.lviv.education.entities.Request;
 import org.lgs.lviv.education.entities.Statement;
 import org.lgs.lviv.education.services.StatementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class StatementRestController {
 
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('ADMIN')")
-    private void addStatement(@RequestParam("id") Request request){
+    public void addStatement(@RequestParam("id") Request request){
         statementService.save(request);
     }
 
@@ -30,7 +31,7 @@ public class StatementRestController {
 
     @PostMapping("/cancel")
     @PreAuthorize("hasAuthority('ADMIN')")
-    private void cancelStatement(@RequestParam("id") Request request){
+    public void cancelStatement(@RequestParam("id") Request request){
         statementService.saveCanceledRequest(request);
     }
 

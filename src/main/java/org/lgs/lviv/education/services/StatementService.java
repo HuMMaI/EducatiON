@@ -90,6 +90,8 @@ public class StatementService {
                 .map(Statement::getUser)
                 .collect(Collectors.toList());
 
+        statementRepository.deleteByFacultyIdAndCredited(facultyId, false);
+
         for (User user : users) {
             String message = String.format(
                     "Hi, %s\n" +
