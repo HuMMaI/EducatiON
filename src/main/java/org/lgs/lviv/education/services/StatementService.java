@@ -95,7 +95,7 @@ public class StatementService {
         for (User user : users) {
             String message = String.format(
                     "Hi, %s\n" +
-                            "The results of admission to %s faculty became known.\n" +
+                            "The results of admission to %s became known.\n" +
                             "Go to find out %s/cabinet.",
                     user.getFirstName(), facultyName, appBaseDomain
             );

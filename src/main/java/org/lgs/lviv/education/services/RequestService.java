@@ -35,4 +35,8 @@ public class RequestService {
     public List<Request> findAllByStatus(String status) {
         return requestsRepository.findAllByStatus(status);
     }
+
+    public void delete(int requestId) {
+        requestsRepository.deleteById(requestId);
+    }
 }

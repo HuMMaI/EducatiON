@@ -6,7 +6,9 @@ public enum FacultySpecialization {
     PHYSICS("Physics"),
     LANGUAGE("Language"),
     LAW("Law"),
-    HISTORY("History");
+    HISTORY("History"),
+    BIOLOGY("Biology"),
+    CULTURE("Culture");
 
     String specializationName;
 

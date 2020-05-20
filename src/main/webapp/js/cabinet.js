@@ -24,7 +24,7 @@ $.get("/cabinet/api/user-info")
                     switch (item.status) {
                         case "Waiting":
                             cardStatusClass = "card-" + item.status.toLowerCase();
-                            deleteBtn += "<button class=\"btn mosh-btn\" type=\"submit\">Delete</button>\n";
+                            deleteBtn += "<button class=\"btn mosh-btn delete-btn\" request-id=\"" + item.id + "\" type=\"submit\">Delete</button>\n";
                             break;
 
                         case "Canceled":
@@ -72,3 +72,19 @@ $.get("/user-cover-files/user-cover-id")
 
         $("#profile-img").attr("src", imgSrc);
     });
+
+$(document).on("click", ".delete-btn", function (event) {
+    event.preventDefault();
+
+    $(".delete-btn").prop("disabled", true);
+    var requestId = $(this).attr("request-id");
+
+    $.ajax({
+        url: "/requests/api/delete/" + requestId,
+        headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+        type: "DELETE",
+        success: function () {
+            location.reload();
+        }
+    });
+})

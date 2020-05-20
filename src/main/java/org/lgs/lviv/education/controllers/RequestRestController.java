@@ -5,9 +5,7 @@ import org.lgs.lviv.education.entities.RequestStatus;
 import org.lgs.lviv.education.services.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +19,10 @@ public class RequestRestController {
     @GetMapping
     public List<Request> getRequests(){
         return requestService.findAllByStatus(RequestStatus.WAITING.toString());
+    }
+
+    @DeleteMapping("/delete/{requestId}")
+    public void deleteRequest(@PathVariable("requestId") int requestId){
+        requestService.delete(requestId);
     }
 }
