@@ -49,7 +49,7 @@
                     </div>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="far fa-key"></i></span>
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
                         <input type="password" class="form-control ${not empty passwordConfirmationError ? 'is-invalid' : ''}" placeholder="password confirmation" name="passwordConfirmation">
                         <c:if test="${not empty passwordConfirmationError}">

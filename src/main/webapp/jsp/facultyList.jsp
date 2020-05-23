@@ -63,35 +63,38 @@
 
         <div class="faculties d-flex flex-wrap">
             <c:forEach items="${faculties}" var="faculty">
-                <div class="alert alert-danger error-hidden d-flex flex-row w-100" id="card-${faculty.id}" role="alert">
-                    <span class="message" id="alertMessage-${faculty.id}"></span>
-                    <span class="alert-link ml-auto alert-close"><i class="fas fa-times"></i></span>
-                </div>
-                <div class="card text-center w-100 mb-3 faculty-cards ${faculty.specialization}">
-                    <h5 class="card-header">${faculty.specialization}</h5>
-                    <div class="card-body">
-                        <h5 class="card-title">${faculty.name}</h5>
-                        <p class="card-text">
-                            <spring:message code="faculty_list_number_of_seats"/> ${faculty.numberOfSeats}<br>
-                            <spring:message code="faculty_list_subjects"/><br>
-                            <c:forEach items="${faculty.subjects}" var="subject">
-                                &mdash;${subject.toString()}<br>
-                            </c:forEach>
-                        </p>
-                        <form action="">
-                            <input type="hidden" value="${userId}" name="userId">
-                            <input type="hidden" value="${faculty.id}" name="facultyId">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <div class="d-flex justify-content-center">
-                                <security:authorize access="hasAuthority('ENROLLEE')">
-                                    <a class="btn mosh-btn mt-50" href="/statement/rating-list?id=${faculty.id}"><spring:message code="faculty_list_show_rating"/></a>
-                                    <button class="btn mosh-btn mt-50 apply-btn ml-4" id="${faculty.id}" type="submit"><spring:message code="faculty_list_apply"/></button>
-                                </security:authorize>
-                                <security:authorize access="hasAuthority('ADMIN')">
-                                    <a class="btn mosh-btn mt-50 ml-4" href="/faculty/edit?id=${faculty.id}"><spring:message code="faculty_list_edit"/></a>
-                                </security:authorize>
-                            </div>
-                        </form>
+                <div class="faculty-cards ${faculty.specialization} w-100 mb-3">
+                    <div class="alert alert-danger error-hidden d-flex flex-row w-100 position-absolute" id="card-${faculty.id}" role="alert" style="z-index: 100">
+                        <span class="message" id="alertMessage-${faculty.id}"></span>
+                        <span class="alert-link ml-auto alert-close"><i class="fas fa-times"></i></span>
+                    </div>
+                    <div class="card text-center">
+                        <h5 class="card-header">${faculty.specialization}</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">${faculty.name}</h5>
+                            <p class="card-text">
+                                <spring:message code="faculty_list_number_of_seats"/> ${faculty.numberOfSeats}<br>
+                                <spring:message code="faculty_list_subjects"/><br>
+                                <c:forEach items="${faculty.subjects}" var="subject">
+                                    &mdash;${subject.toString()}<br>
+                                </c:forEach>
+                            </p>
+                            <form action="">
+                                <input type="hidden" value="${userId}" name="userId">
+                                <input type="hidden" value="${faculty.id}" name="facultyId">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <div class="d-flex justify-content-center">
+                                    <security:authorize access="hasAuthority('ENROLLEE')">
+                                        <a class="btn mosh-btn mt-50" href="/statement/rating-list?id=${faculty.id}"><spring:message code="faculty_list_show_rating"/></a>
+                                        <button class="btn mosh-btn mt-50 apply-btn ml-4" id="${faculty.id}" type="submit"><spring:message code="faculty_list_apply"/></button>
+                                    </security:authorize>
+                                    <security:authorize access="hasAuthority('ADMIN')">
+                                        <a class="btn mosh-btn mt-50 ml-4" href="/faculty/edit?id=${faculty.id}"><spring:message code="faculty_list_edit"/></a>
+                                        <button class="btn mosh-btn mt-50 ml-4 delete-btn" faculty-id="${faculty.id}"><spring:message code="faculty_list_delete"/></button>
+                                    </security:authorize>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </c:forEach>

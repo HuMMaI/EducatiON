@@ -27,4 +27,8 @@ public class FacultyService {
     public void create(Faculty faculty) {
         facultyRepository.save(faculty);
     }
+
+    public void delete(int id){
+        facultyRepository.deleteById(id);
+    }
 }

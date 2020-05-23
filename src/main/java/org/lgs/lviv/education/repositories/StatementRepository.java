@@ -22,4 +22,9 @@ public interface StatementRepository extends JpaRepository<Statement, Integer> {
     @Transactional
     @Query("UPDATE Statement s SET s.isCredited = TRUE WHERE s.id IN :ids")
     void setCreditedValue(@Param("ids") Integer[] ids);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Statement s WHERE s.faculty.id = :facultyId AND s.isCredited = :isCredited")
+    void deleteByFacultyIdAndCredited(@Param("facultyId") int facultyId, @Param("isCredited") boolean isCredited);
 }

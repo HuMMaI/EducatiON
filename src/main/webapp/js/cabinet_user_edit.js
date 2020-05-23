@@ -66,6 +66,8 @@ $("#save-btn").click(function (event) {
         .fail(function (response) {
             var result = response.responseJSON;
 
+            $("#save-btn").prop("disabled", false);
+
             jQuery.each(result, function (key, item) {
                 switch (key) {
                     case "firstNameError":

@@ -113,6 +113,7 @@
         <div class="row">
             <div class="col-12">
                 <h2>Requests</h2>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="d-flex flex-wrap" id="user-requests">
 
                 </div>
