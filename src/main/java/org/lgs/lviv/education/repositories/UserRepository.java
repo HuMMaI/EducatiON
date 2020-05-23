@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findByVerifyHashCode(String hash);
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional
     @Query("UPDATE User u SET u.isEmailVerify=TRUE WHERE u.id=:userId")
     void confirmEmail(@Param("userId") int id);
