@@ -2,6 +2,7 @@ package org.lgs.lviv.education.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -165,5 +166,31 @@ public class User implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                age == user.age &&
+                isEmailVerify == user.isEmailVerify &&
+                isApply == user.isApply &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(gender, user.gender) &&
+                Objects.equals(country, user.country) &&
+                Objects.equals(city, user.city) &&
+                Objects.equals(roles, user.roles) &&
+                Objects.equals(coverId, user.coverId) &&
+                Objects.equals(verifyHashCode, user.verifyHashCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, password, age, gender, country, city, roles, coverId, isEmailVerify, verifyHashCode, isApply);
     }
 }
